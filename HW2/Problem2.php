@@ -8,8 +8,15 @@ function getTotal($arr)
     echo "<br>Processing Array:<br><pre>" . var_export($arr, true) . "</pre>";
     $total = 0.00;
     //TODO do adding here
+    $x = 0;
+
+    do {
+        $total = $total + $arr[$x];
+        $x++;
+    } while ($x < count($arr));
+
     //TODO do rounding stuff here
-    echo "The total is " . var_export($total, true);
+    echo "The total is <br>" . var_export(round($total, 2), true);
 }
 echo "Problem 2: Adding Floats<br>";
 ?>
