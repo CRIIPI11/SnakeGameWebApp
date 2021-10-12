@@ -1,8 +1,6 @@
 <?php
-require(__DIR__ . "/../../partials/nav.php")
+require(__DIR__ . "/../../partials/nav.php");
 ?>
-
-
 <form onsubmit="return validate(this)" method="POST">
     <div>
         <label for="email">Email</label>
@@ -29,49 +27,59 @@ require(__DIR__ . "/../../partials/nav.php")
 <?php
 //TODO 2: add PHP Code
 if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm"])) {
-    //get the info key from $_POST, default to "" if not set, and return the value
     $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
     $confirm = se($_POST, "confirm", "", false);
+    //TODO 3
 
-    //TODO 3: validate/use
-    $errors = [];
+
+    //$errors = [];
+    $hasError = false;
     if (empty($email)) {
-        array_push($errors, "email must be set");
+        flash("Email must not be empty");
+        $hasError = true;
     }
-    //sanitize
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    //$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    $email = sanitize_email($email);
     //validate
-    if (!filter_var($email, FILTER_SANITIZE_EMAIL)) {
-        array_push($errors, "invalid email address");
+    //if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!is_valid_email($email)) {
+        flash("Invalid email");
+        $hasError = true;
     }
-
+    if (empty($password)) {
+        flash("password must not be empty");
+        $hasError = true;
+    }
     if (empty($confirm)) {
-        array_push($errors, "confirm must be set");
+        flash("Confirm password must not be empty");
+        $hasError = true;
     }
-
     if (strlen($password) < 8) {
-        array_push($errors, "password must be 8 char");
+        flash("Password too short");
+        $hasError = true;
     }
-
     if (strlen($password) > 0 && $password !== $confirm) {
-        array_push($errors, "password don't match");
+        flash("Passwords must match");
+        $hasError = true;
     }
-
-    if (count($errors) > 0) {
-        echo "<pre>" . var_export($errors, true) . "</pre>";
+    if ($hasError) {
+        //flash("<pre>" . var_export($errors, true) . "</pre>");
     } else {
+        flash("Welcome, $email"); //will show on home.php
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
-        $stmt = $db->prepare("INSERT INTO Users (email, password) VALUES (:email, :password)");
+        $stmt = $db->prepare("INSERT INTO Users (email, password) VALUES(:email, :password)");
         try {
             $stmt->execute([":email" => $email, ":password" => $hash]);
-            echo "You've been registered!";
+            flash("You've registered, yay...");
         } catch (Exception $e) {
-            echo "There was a problem registering";
-            echo "<pre>" . var_export($e, true) . "</pre>";
+            flash("There was a problem registering");
+            flash("<pre>" . var_export($e, true) . "</pre>");
         }
     }
 }
-
+?>
+<?php
+require(__DIR__ . "/../../partials/flash.php");
 ?>
