@@ -75,7 +75,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
     if ($hasError) {
         //flash("<pre>" . var_export($errors, true) . "</pre>");
     } else {
-        flash("Welcome, $email"); //will show on home.php
+        //flash("Welcome, $email"); //will show on home.php
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $db = getDB();
         $stmt = $db->prepare("INSERT INTO Users (email, password, username) VALUES(:email, :password, :username)");
@@ -83,8 +83,9 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
             $stmt->execute([":email" => $email, ":password" => $hash, ":username" => $username]);
             flash("You've registered, yay...");
         } catch (Exception $e) {
-            flash("There was a problem registering");
-            flash("<pre>" . var_export($e, true) . "</pre>");
+            /* flash("There was a problem registering");
+            flash("<pre>" . var_export($e, true) . "</pre>");*/
+            users_check_duplicate($e->errorInfo);
         }
     }
 }
