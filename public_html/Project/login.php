@@ -21,6 +21,9 @@ require(__DIR__ . "/../../partials/nav.php"); ?>
 </script>
 <?php
 //TODO 2: add PHP Code
+if (is_logged_in()) {
+    die(header("Location: home.php"));
+}
 if (isset($_POST["email"]) && isset($_POST["password"])) {
     //get the email key from $_POST, default to "" if not set, and return the value
     $email = se($_POST, "email", "", false);
@@ -42,6 +45,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     if (!is_valid_email($email)) {
         //array_push($errors, "Invalid email address");
         flash("Invalid email address", "warning");
+
         $hasErrors = true;
     }
     if (empty($password)) {
@@ -61,7 +65,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     } else {
         //TODO 4
         $db = getDB();
-        $stmt = $db->prepare("SELECT id, email, username, password from Users where email = :email");
+        $stmt = $db->prepare("SELECT id, username, email, password from Users where email = :email");
         try {
             $r = $stmt->execute([":email" => $email]);
             if ($r) {
@@ -72,6 +76,18 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                     if (password_verify($password, $hash)) {
                         ///echo "Weclome $email";
                         $_SESSION["user"] = $user;
+                        //lookup potential roles
+                        $stmt = $db->prepare("SELECT Roles.name FROM Roles 
+                        JOIN UserRoles on Roles.id = UserRoles.role_id 
+                        where UserRoles.user_id = :user_id and Roles.is_active = 1 and UserRoles.is_active = 1");
+                        $stmt->execute([":user_id" => $user["id"]]);
+                        $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); //fetch all since we'll want multiple
+                        //save roles or empty array
+                        if ($roles) {
+                            $_SESSION["user"]["roles"] = $roles; //at least 1 role
+                        } else {
+                            $_SESSION["user"]["roles"] = []; //no roles
+                        }
                         die(header("Location: home.php"));
                     } else {
                         //echo "Invalid password";
