@@ -1,8 +1,20 @@
 <!DOCTYPE html>
+<head>
+  <style>
+    body {
+      background-color: aliceblue;
+      padding-left: 5em;
+      padding-top: 1em;
+    }
+    canvas {
+      border: solid 1px green;
+    }
+  </style>
+</head>
 <html>
   <body>
     <div>
-      <h1 style="display: inline">modified game</h1>
+      <h1 style="display: inline">Square Game</h1>
     </div>
     <main>
       <canvas tabindex="0" id="board" width="600px" height="400px"> </canvas>
@@ -23,7 +35,7 @@
     var x = 50; // X position
     var y = 100; // Y position
     var speed = 6; // Distance to move each frame
-    var sideLength = 50; // Length of each side of the square
+    var sideLength = 30; // Length of each side of the square
 
     // FLags to track which keys are pressed
     var down = false;
@@ -35,6 +47,15 @@
     var targetX = 0;
     var targetY = 0;
     var targetLength = 25;
+    // Properties for the target square
+    var bonusX = 0;
+    var bonusY = 0;
+    var bonusLength = 25;
+    //target x and y initial speed
+    var targetSpeedX = 1;
+    var targetSpeedY = 1;
+    //starting sec
+    var randomSecond = 0;
 
     // Determine if number a is within the range b to c (exclusive)
     function isWithin(a, b, c) {
@@ -123,6 +144,8 @@
       canvas.removeEventListener("click", startGame);
       // Put the target at a random starting point
       moveTarget();
+      //put bonus at random starting point
+      movebonus();
       // Kick off the draw loop
       draw();
     }
@@ -149,11 +172,58 @@
       targetY = Math.round(Math.random() * canvas.height - targetLength);
     }
 
+    //gives bonus a random position
+    function movebonus() {
+      bonusX = Math.round(Math.random() * canvas.width - bonusLength);
+      bonusY = Math.round(Math.random() * canvas.height - bonusLength);
+    }
+
+    //makes random sec
+    function randomtime(min, max) {
+      randomSecond = Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
     // Clear the canvas
     function erase() {
       context.fillStyle = "#FFFFFF";
       context.fillRect(0, 0, 600, 400);
     }
+
+    //erases bonus
+    function eraseBonus() {
+      bonusX = -50;
+      bonusY = -50;
+    }
+
+    //draws +10 sec bonus
+    function bonus() {
+      context.fillStyle = "#000000";
+      context.fillRect(bonusX, bonusY, bonusLength, bonusLength);
+      if (
+        isWithin(bonusX, x, x + bonusLength) ||
+        isWithin(bonusX + bonusLength, x, x + bonusLength)
+      ) {
+        // X
+        if (
+          isWithin(bonusY, y, y + bonusLength) ||
+          isWithin(bonusY + bonusLength, y, y + bonusLength)
+        ) {
+          eraseBonus();
+          countdown = countdown + 10;
+        }
+      }
+    }
+
+    //Gives random direction x to target
+    if (Math.floor(Math.random() * 2) == 0) {
+      targetSpeedX = -targetSpeedX;
+    }
+    //Gives random direction y to target
+    if (Math.floor(Math.random() * 2) == 0) {
+      targetSpeedY = -targetSpeedY;
+    }
+
+    randomtime(3, 25);
 
     // The main draw loop
     function draw() {
@@ -171,6 +241,7 @@
       if (left) {
         x -= speed;
       }
+
       // Keep the square within the bounds
       if (y + sideLength > canvas.height) {
         y = canvas.height - sideLength;
@@ -184,6 +255,25 @@
       if (x + sideLength > canvas.width) {
         x = canvas.width - sideLength;
       }
+
+      //Moves target
+      targetX += targetSpeedX;
+      targetY += targetSpeedY;
+
+      // bounce target
+      if (targetX < 0 && targetSpeedX < 0) {
+        targetSpeedX = -targetSpeedX;
+      }
+      if (targetX + targetLength > canvas.width && targetSpeedX > 0) {
+        targetSpeedX = -targetSpeedX;
+      }
+      if (targetY < 0 && targetSpeedY < 0) {
+        targetSpeedY = -targetSpeedY;
+      }
+      if (targetY + targetLength > canvas.height && targetSpeedY > 0) {
+        targetSpeedY = -targetSpeedY;
+      }
+
       // Collide with the target
       if (
         isWithin(targetX, x, x + sideLength) ||
@@ -199,8 +289,25 @@
           moveTarget();
           // Increase the score
           score++;
+
+          //increases target's speed every 5 points
+          if (score % 5 == 0) {
+            if (targetSpeedX < 0) {
+              targetSpeedX -= 1;
+            }
+            if (targetSpeedX > 0) {
+              targetSpeedX += 1;
+            }
+            if (targetSpeedY < 0) {
+              targetSpeedY -= 1;
+            }
+            if (targetSpeedY > 0) {
+              targetSpeedY += 1;
+            }
+          }
         }
       }
+
       // Draw the square
       context.fillStyle = "#FF0000";
       context.fillRect(x, y, sideLength, sideLength);
@@ -213,6 +320,16 @@
       context.textAlign = "left";
       context.fillText("Score: " + score, 10, 24);
       context.fillText("Time Remaining: " + countdown, 10, 50);
+
+      //appears bonus after random sec
+      if (countdown <= randomSecond) {
+        bonus();
+        //erase bonus if not collected within 2 sec
+        if (countdown <= randomSecond - 2 && !bonus()) {
+          eraseBonus();
+        }
+      }
+
       // End the game or keep playing
       if (countdown <= 0) {
         endGame();
