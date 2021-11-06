@@ -6,7 +6,7 @@
 
 ## Project Board Link: https://github.com/CRIIPI11/IT202-005/projects/1
 
-## Website Link: 
+## Website Link:
 
 ## Your Name: Cristhian Molina
 
@@ -29,96 +29,104 @@
 ### Proposal Checklist and Evidence
 
 - Milestone 1
+
   - [x] \(10/09/2021) User will be able to register a new account
-    -  List of Evidence of Feature Completion
-       - Status: Completed
-       - Direct Link: Pending
-       - Pull Requests
-         - PR link #1 Pending
-       - Screenshots
-         - SS #1 Pending
-            - SS#1 description 
+
+    - List of Evidence of Feature Completion
+      - Status: Completed
+      - Direct Link: Pending
+      - Pull Requests
+        - PR link #1 Pending
+      - Screenshots
+        - SS #1 Pending
+          - SS#1 description
 
   - [x] \(10/09/2021) User will be able to login to their account (given they enter the correct credentials)
-    -  List of Evidence of Feature Completion  
-       - Status: Completed
-       - Direct Link: Pending
-       - Pull Requests
-         - PR link #1 Pending
-       - Screenshots
-         - SS #1 Pending
-            - SS#1 description
-  
+
+    - List of Evidence of Feature Completion
+      - Status: Completed
+      - Direct Link: Pending
+      - Pull Requests
+        - PR link #1 Pending
+      - Screenshots
+        - SS #1 Pending
+          - SS#1 description
+
   - [x] \(10/09/2021) User will be able to logout
-    -  List of Evidence of Feature Completion
-       - Status: Completed
-       - Direct Link: Pending
-       - Pull Requests
-         - PR link #1 Pending
-       - Screenshots
-         - SS #1 Pending
-            - SS#1 description
+
+    - List of Evidence of Feature Completion
+      - Status: Completed
+      - Direct Link: Pending
+      - Pull Requests
+        - PR link #1 Pending
+      - Screenshots
+        - SS #1 Pending
+          - SS#1 description
 
   - [x] \(10/09/2021) Basic security rules implemented
-    -  List of Evidence of Feature Completion   
-       - Status: Completed
-       - Direct Link: Pending
-       - Pull Requests
-         - PR link #1 Pending
-       - Screenshots
-         - SS #1 Pending
-            - SS#1 description
+
+    - List of Evidence of Feature Completion
+      - Status: Completed
+      - Direct Link: Pending
+      - Pull Requests
+        - PR link #1 Pending
+      - Screenshots
+        - SS #1 Pending
+          - SS#1 description
 
   - [x] \(10/09/2021) Basic Roles implemented
-    -  List of Evidence of Feature Completion   
-       - Status: Completed
-       - Direct Link: Pending
-       - Pull Requests
-         - PR link #1 Pending
-       - Screenshots
-         - SS #1 Pending
-            - SS#1 description
+
+    - List of Evidence of Feature Completion
+      - Status: Completed
+      - Direct Link: Pending
+      - Pull Requests
+        - PR link #1 Pending
+      - Screenshots
+        - SS #1 Pending
+          - SS#1 description
 
   - [ ] \( ) Site should have basic styles/theme applied; everything should be styled
-    -  List of Evidence of Feature Completion   
-       - Status: Incomplete
-       - Direct Link: Incomplete
-       - Pull Requests
-         - PR link #1 Incomplete
-       - Screenshots
-         - SS #1 Incomplete
-            - SS#1 description
+
+    - List of Evidence of Feature Completion
+      - Status: Incomplete
+      - Direct Link: Incomplete
+      - Pull Requests
+        - PR link #1 Incomplete
+      - Screenshots
+        - SS #1 Incomplete
+          - SS#1 description
 
   - [x] \(10/12/2021) Any output messages/errors should be “user friendly”
-    -  List of Evidence of Feature Completion   
-       - Status: Completed
-       - Direct Link: Pending
-       - Pull Requests
-         - PR link #1 Pending
-       - Screenshots
-         - SS #1 Pending
-            - SS#1 description
+
+    - List of Evidence of Feature Completion
+      - Status: Completed
+      - Direct Link: Pending
+      - Pull Requests
+        - PR link #1 Pending
+      - Screenshots
+        - SS #1 Pending
+          - SS#1 description
 
   - [x] \(10/18/2021) User will be able to see their profile
-    -  List of Evidence of Feature Completion   
-       - Status: Completed
-       - Direct Link: Pending
-       - Pull Requests
-         - PR link #1 Pending
-       - Screenshots
-         - SS #1 Pending
-            - SS#1 description
+
+    - List of Evidence of Feature Completion
+      - Status: Completed
+      - Direct Link: Pending
+      - Pull Requests
+        - PR link #1 Pending
+      - Screenshots
+        - SS #1 Pending
+          - SS#1 description
 
   - [x] \(10/18/2021) User will be able to edit their profile
     - List of Evidence of Feature Completion
       - Status: Completed
       - Direct Link: Pending
       - Pull Requests
-        - PR link #1 Pending 
+        - PR link #1 Pending
       - Screenshots
         - SS #1 Pending
           - SS #1 Pending
-
 
 - Milestone 2
 - Milestone 3
