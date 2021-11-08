@@ -6,7 +6,7 @@
 
 ## Project Board Link: https://github.com/CRIIPI11/IT202-005/projects/1
 
-## Website Link:
+## Website Link: https://cdm9-prod.herokuapp.com/Project/
 
 ## Your Name: Cristhian Molina
 
@@ -34,99 +34,120 @@
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: Pending
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/register.php
       - Pull Requests
-        - PR link #1 Pending
+        - PR link #1: https://github.com/CRIIPI11/IT202-005/pull/9
+        - PR link #2: https://github.com/CRIIPI11/IT202-005/pull/20
+        - PR link #3: https://github.com/CRIIPI11/IT202-005/pull/21
       - Screenshots
-        - SS #1 Pending
-          - SS#1 description
+        - ![image](https://user-images.githubusercontent.com/60235905/140616903-2383062c-28e6-4de4-9cd6-89be5d00949b.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/140617004-c2bd4e77-e715-4eaf-b5fd-f86b2519ed22.png)
+          - Screenshot #1 & #2 description: Here in the screenshots we can see the registration page, it has a form where it asks the users to input the crendentials they want to use for their accounts such as email, username, and password.
+        - ![image](https://user-images.githubusercontent.com/60235905/140617014-17029465-7acc-4a5d-b8ca-69e2fab6d5c0.png)
+          - Screenshot #3: After the users inputs their information, and given that their email is valid and their password matches, a new account will be created and a message will be displayed to confirmed it. 
 
   - [x] \(10/09/2021) User will be able to login to their account (given they enter the correct credentials)
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: Pending
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/login.php
       - Pull Requests
-        - PR link #1 Pending
+        - PR link #1: https://github.com/CRIIPI11/IT202-005/pull/9
+        - PR link #2: https://github.com/CRIIPI11/IT202-005/pull/20
+        - PR link #3: https://github.com/CRIIPI11/IT202-005/pull/21
+        - PR link #4: https://github.com/CRIIPI11/IT202-005/pull/23 
       - Screenshots
-        - SS #1 Pending
-          - SS#1 description
+        - ![image](https://user-images.githubusercontent.com/60235905/140617539-001af5ab-35f6-4d85-89af-19c77858f70a.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/140617550-b27fcd6a-8aae-48a5-bb4f-a305ffc62804.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/140617553-bac1c219-7dfd-442a-96ff-bb4e0b85168b.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/140617566-34920c1f-39cf-400f-9aa9-bbcfe0d43e60.png)
+          - Screenshot descriptions: Here we can see the login page, the users will be ask to input their credentials to acces their account, they can either use their email or username and if it validates corretly, the users will enter their account. 
 
   - [x] \(10/09/2021) User will be able to logout
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: Pending
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/logout.php
       - Pull Requests
-        - PR link #1 Pending
+        - PR link #1: https://github.com/CRIIPI11/IT202-005/pull/9
+        - PR link #2: https://github.com/CRIIPI11/IT202-005/pull/20
+        - PR link #3: https://github.com/CRIIPI11/IT202-005/pull/21
       - Screenshots
-        - SS #1 Pending
-          - SS#1 description
+        - ![image](https://user-images.githubusercontent.com/60235905/140816847-91fc37b1-c8b3-410a-a1c0-a02d0e0b1ead.png)
+          - Screenshot description: After the users logout, they will be redirected to the login page and a message will be display indicating that they have successfully logout.
 
   - [x] \(10/09/2021) Basic security rules implemented
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: Pending
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/login.php
       - Pull Requests
-        - PR link #1 Pending
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/21
       - Screenshots
-        - SS #1 Pending
-          - SS#1 description
+        - ![image](https://user-images.githubusercontent.com/60235905/140618649-f31f9096-fe50-4699-a2fa-48afcfea4d5e.png)
+          - Screenshot description: If the users tries to access a page that can't be access unless their logged in, they will be redirected to the login page and get an alert message saying so.
 
   - [x] \(10/09/2021) Basic Roles implemented
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: Pending
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/admin/list_roles.php
       - Pull Requests
-        - PR link #1 Pending
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/22
       - Screenshots
-        - SS #1 Pending
-          - SS#1 description
+        - ![image](https://user-images.githubusercontent.com/60235905/140619161-e1bb1dc6-3d96-4909-925f-cf5bbaced68d.png)
+          - Screenshot description: Here we can see the List Roles Page, this page as well as the other role pages will only be accessible for the users with an admin role. Here, the admin user will be able to see the list of current roles as well as their respective id, names and descriptions, the users will also be able to look for a specific role and either activate or desactivate any role.
+        - ![image](https://user-images.githubusercontent.com/60235905/140619171-a76abbe6-bbb6-43e4-a803-4d72a3535281.png)
+          - Screenshot description: Here we have the Create Roles Page, this page will allow the admin user to create a new role giving it a name and a description.
+        - ![image](https://user-images.githubusercontent.com/60235905/140619190-7a2b2bfb-b307-4804-9fe4-6da0c379d643.png)
+          - Screenshot description: Lastly we have the Assign Roles Page, here the admin user will be able to assign or remove current roles to any user.
+          
 
-  - [ ] \( ) Site should have basic styles/theme applied; everything should be styled
+  - [x] \(11/05/2021 ) Site should have basic styles/theme applied; everything should be styled
 
     - List of Evidence of Feature Completion
-      - Status: Incomplete
-      - Direct Link: Incomplete
+      - Status: Complete
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/styles.css
       - Pull Requests
-        - PR link #1 Incomplete
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/26
       - Screenshots
-        - SS #1 Incomplete
-          - SS#1 description
-
+        - ![image](https://user-images.githubusercontent.com/60235905/140619906-580f6136-52ab-4476-b6fd-aa12e7cb9504.png)
+          
   - [x] \(10/12/2021) Any output messages/errors should be “user friendly”
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: Pending
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/helpers.js
       - Pull Requests
-        - PR link #1 Pending
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/10
       - Screenshots
-        - SS #1 Pending
-          - SS#1 description
+        - ![image](https://user-images.githubusercontent.com/60235905/140620371-45d3a99f-90e6-4d1a-b146-dfaa1c3a44d2.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/140620415-5fe69e54-a135-4c50-814c-0cf04f12b8d7.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/140618649-f31f9096-fe50-4699-a2fa-48afcfea4d5e.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/140617014-17029465-7acc-4a5d-b8ca-69e2fab6d5c0.png)
+          - Screenshot descriptions: Here we can see that every message either an error, an alert, a success or info are outputed in their respective color and with a message becoming user friendly.  
 
   - [x] \(10/18/2021) User will be able to see their profile
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: Pending
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/profile.php
       - Pull Requests
-        - PR link #1 Pending
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/10
       - Screenshots
-        - SS #1 Pending
-          - SS#1 description
+        - ![image](https://user-images.githubusercontent.com/60235905/140620683-816970cf-639c-4350-8b96-9c6fb3625575.png)
+          - Screenshot description: Here we have the Profile Page, the users will be able to see their current information such as email and username as well as having an option to update their password.  
 
   - [x] \(10/18/2021) User will be able to edit their profile
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: Pending
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/profile.php
       - Pull Requests
-        - PR link #1 Pending
+        - PR link #1: https://github.com/CRIIPI11/IT202-005/pull/10
+        - PR link #2: https://github.com/CRIIPI11/IT202-005/pull/21  
       - Screenshots
-        - SS #1 Pending
-          - SS #1 Pending
+        - ![image](https://user-images.githubusercontent.com/60235905/140620955-24bac2c5-6d81-4d32-9a28-3647165e0f5f.png)
+          - Screenshot Description: If the users want, they will be able to edit their email or username, as well as update their current password if they provide their current password. If everything validates correctly, the credentials for the use will be updated. 
 
 - Milestone 2
 - Milestone 3
