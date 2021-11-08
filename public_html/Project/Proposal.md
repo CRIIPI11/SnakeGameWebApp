@@ -73,8 +73,8 @@
         - PR link #2: https://github.com/CRIIPI11/IT202-005/pull/20
         - PR link #3: https://github.com/CRIIPI11/IT202-005/pull/21
       - Screenshots
-        - SS #1 Pending
-          - SS#1 description
+        - ![image](https://user-images.githubusercontent.com/60235905/140816847-91fc37b1-c8b3-410a-a1c0-a02d0e0b1ead.png)
+          - Screenshot description: After the users logout, they will be redirected to the login page and a message will be display indicating that they have successfully logout.
 
   - [x] \(10/09/2021) Basic security rules implemented
 
