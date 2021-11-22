@@ -6,10 +6,11 @@ $response = ["message" => "There was a problem saving your score"];
 http_response_code(400);
 $contentType = $_SERVER["CONTENT_TYPE"];
 error_log($contentType);
+
 if ($contentType === "application/json") {
     $json = file_get_contents('php://input');
-    error_log(var_export($json, true));
     $score = json_decode($json, true)["score"];
+    error_log(var_export($json, true));
     error_log($score);
 }
 
