@@ -150,7 +150,7 @@
 
 - Milestone 2
 
-  - [ ] \(mm/dd/yyyy of completion) Pick a simple game to implement, anything that generates a score that’s more advanced than a simple random number generator (may build off of a sample from the site shared in class)
+  - [x] \(11/19/2021) Pick a simple game to implement, anything that generates a score that’s more advanced than a simple random number generator (may build off of a sample from the site shared in class)
 
     - List of Evidence of Feature Completion
       - Status: Partially working
@@ -160,18 +160,18 @@
         - The concept of this game dates back to 1976 from an arcade game. The first version of the Snake Game as we know it first appeared in 1997 on the Nokia 6110 and since then, it has received different modifications either on the mechanincs or visual. For this project I'm bringing back this clasic including some modifications to it, giving it a more personalized touch.
       - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
       - Pull Requests
-        - PR link #1 (repeat as necessary)
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/47
       - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+        - ![image](https://user-images.githubusercontent.com/60235905/142943120-f772ada6-1a64-4b30-9d62-eaf499db6097.png))
+          - Screenshot Description: This is the base game, currently the game is pretty basic in all aspects, it will receive further updates.  
 
-  - [ ] \(mm/dd/yyyy of completion) The system will save the user’s score at the end of the game if the user is logged in
+  - [x] \(11/22/2021) The system will save the user’s score at the end of the game if the user is logged in
 
     - List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
+      - Status: Completed
       - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
       - Pull Requests
-        - PR link #1 (repeat as necessary)
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/48
       - Screenshots
         - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
           - Screenshot #1 description explaining what you're trying to show
