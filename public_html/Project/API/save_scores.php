@@ -5,13 +5,15 @@ session_start();
 $response = ["message" => "There was a problem saving your score"];
 http_response_code(400);
 $contentType = $_SERVER["CONTENT_TYPE"];
-
+error_log($contentType);
 if ($contentType === "application/json") {
     $json = file_get_contents('php://input');
+    error_log(var_export($json, true));
     $score = json_decode($json, true)["score"];
+    error_log($score);
 }
 
-if (isset($score["score"])) {
+if (isset($score)) {
     $reject = false;
     $user_id = get_user_id();
     if ($user_id <= 0) {
@@ -26,6 +28,7 @@ if (isset($score["score"])) {
         http_response_code(200);
         save_score($user_id, $scores, true);
         error_log("Score of $score saved successfully for $user_id");
+        $response["message"] = "score saved";
     }
 }
 echo json_encode($response);

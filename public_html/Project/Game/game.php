@@ -125,7 +125,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
-                score: "score"
+                score: score
             })
         }).then(async res => {
             let score = await res.json();
