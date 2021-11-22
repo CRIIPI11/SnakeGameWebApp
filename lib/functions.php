@@ -131,3 +131,28 @@ function get_url($dest)
     //handle relative path
     return $BASE_PATH . $dest;
 }
+
+function save_score($user_id, $score, $showflash = true)
+{
+
+    if ($user_id < 1) {
+        flash("not login", "warning");
+        return;
+    }
+
+    if ($score <= 0) {
+        flash("zero score not valid", "warning");
+        return;
+    }
+
+    $db = getDB();
+    $stmt = $db->prepare("INSERT INTO Scores(user_id, score) VALUES (:userid, :score)");
+    try {
+        $stmt->execute([":userid" => $user_id, ":score" => $score]);
+        if ($showflash) {
+            flash("Saved score of $score", "success");
+        }
+    } catch (PDOException $e) {
+        flash("Error saving score: " . var_export($e->errorInfo, true), "danger");
+    }
+}
