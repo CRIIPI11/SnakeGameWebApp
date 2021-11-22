@@ -66,6 +66,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
             appleY = Math.floor(Math.random() * titleCount);
             taillength++;
             score++;
+
         }
     }
 
@@ -110,16 +111,36 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
             context.fillStyle = 'white';
             context.font = '50px Verdana'
             context.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
+            console.log(score);
         }
 
         return gameOver;
     }
 
+    function sscore() {
+
+        fetch("../API/save_scores.php", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                score: score
+            })
+        }).then(async res => {
+            let score = await res.json();
+            console.log("score", score);
+        })
+
+    }
+
     function Draw() {
 
         changeposition();
-        let result = gameover();
-        if (result) {
+
+        if (gameover()) {
+            console.log(score);
+            sscore();
             return;
         }
         erase();
