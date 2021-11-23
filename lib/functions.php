@@ -156,3 +156,23 @@ function save_score($user_id, $score, $showflash = true)
         flash("Error saving score: " . var_export($e->errorInfo, true), "danger");
     }
 }
+
+function get_user_scores($user_id, $min)
+{
+    if ($min == null) {
+        $min = 5;
+    }
+    $db = getDB();
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $stmt = $db->prepare("SELECT score, created from Scores where user_id = :id ORDER BY created desc LIMIT :min");
+    try {
+        $stmt->execute([":id" => $user_id, ":min" => $min]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            return $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error getting latest $min scores for user $user_id: " . var_export($e->errorInfo, true));
+    }
+    return [];
+}
