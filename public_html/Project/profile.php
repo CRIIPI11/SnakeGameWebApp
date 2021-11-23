@@ -107,16 +107,18 @@ $user_id = get_user_id();
         <form method="POST">
             <label for="last">Last</label>
             <select name="top">
-                <option selected>5</option>
-                <option selected>10</option>
-                <option selected>15</option>
-                <option selected>20</option>
+                <option selected disabled>top</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
             </select>
             <input type="submit" class="mt-3 btn btn-primary" name="submit" value="submit">
         </form>
         <?php
         $get_top = $_POST['top'];
-        $scores = get_user_scores($user_id, $get_top); ?>
+        $scores = get_user_scores($user_id, $get_top);
+        ?>
 
         <table class="table text-light">
             <thead>

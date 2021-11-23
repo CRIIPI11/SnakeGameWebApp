@@ -159,8 +159,8 @@ function save_score($user_id, $score, $showflash = true)
 
 function get_user_scores($user_id, $min)
 {
-    if ($min == null) {
-        $min = 5;
+    if (!isset($min)) {
+        $min = 10;
     }
     $db = getDB();
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -175,4 +175,63 @@ function get_user_scores($user_id, $min)
         error_log("Error getting latest $min scores for user $user_id: " . var_export($e->errorInfo, true));
     }
     return [];
+}
+
+function get_top_week()
+{
+    $db = getDB();
+    $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
+    $query .= " WHERE Scores.created >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
+    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $stmt = $db->prepare($query);
+    $results = [];
+    try {
+        $stmt->execute();
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching scores for weak: " . var_export($e->errorInfo, true));
+    }
+    return $results;
+}
+
+function get_top_month()
+{
+    $db = getDB();
+    $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
+    $query .= " WHERE Scores.created >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
+    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $stmt = $db->prepare($query);
+    $results = [];
+    try {
+        $stmt->execute();
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching scores for weak: " . var_export($e->errorInfo, true));
+    }
+    return $results;
+}
+
+function get_top_lifetime()
+{
+    $db = getDB();
+    $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
+    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $stmt = $db->prepare($query);
+    $results = [];
+    try {
+        $stmt->execute();
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching scores for weak: " . var_export($e->errorInfo, true));
+    }
+    return $results;
 }
