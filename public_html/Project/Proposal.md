@@ -158,7 +158,7 @@
         - The game I will be doing for this project is a personalized version of the "Snake Game"
       - Briefly describe it
         - The concept of this game dates back to 1976 from an arcade game. The first version of the Snake Game as we know it first appeared in 1997 on the Nokia 6110 and since then, it has received different modifications either on the mechanincs or visual. For this project I'm bringing back this clasic including some modifications to it, giving it a more personalized touch.
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/Game/game.php
       - Pull Requests
         - PR link: https://github.com/CRIIPI11/IT202-005/pull/47
       - Screenshots
@@ -169,33 +169,35 @@
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/API/save_scores.php  https://cdm9-prod.herokuapp.com/Project/Game/game.php
       - Pull Requests
         - PR link: https://github.com/CRIIPI11/IT202-005/pull/48
       - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+        - ![image](https://user-images.githubusercontent.com/60235905/143727510-144c9b5b-f41d-46f5-8977-a40e0b85bcd6.png)
+          - Screenshot Description: After the game is over, we can see a successful message confirming the score has saved. 
 
-  - [ ] \(mm/dd/yyyy of completion) The user will be able to see their last 10 scores
+  - [x] \(11/27/2021) The user will be able to see their last 10 scores
 
     - List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Status: Completed
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/profile.php
       - Pull Requests
-        - PR link #1 (repeat as necessary)
+        - PR link #1: https://github.com/CRIIPI11/IT202-005/pull/49
+        - PR link #2: https://github.com/CRIIPI11/IT202-005/pull/50
       - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+        - ![image](https://user-images.githubusercontent.com/60235905/143728097-70d33f81-a5df-41f8-8822-8ff5ec24304c.png)
+          - Screenshot Description: On the profile page, the user will be able to see a table showing scores. The table will show the last 10 scores by default but they will also have the chance to choose the amount from 5 to 20. 
 
-  - [ ] \(mm/dd/yyyy of completion) Create functions that output the scoreboards (this will be used later)
+  - [x] \(11/25/2021) Create functions that output the scoreboards 
     - List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
+      - Status: Completed
+      - Direct Link: (Not accesible from browser)
       - Pull Requests
-        - PR link #1 (repeat as necessary)
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/50 
       - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+        - ![image](https://user-images.githubusercontent.com/60235905/143730043-cce7384b-fb57-438f-9a15-386c833d3807.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/143728915-42222d58-a9a2-4c51-8b25-8949f6b105e0.png)
+          - Screenshot Description: Here we can see there are three different functions, each will be used separately to display the scoreboard for the past week, month, and lifetime.
 
 - Milestone 3
 - Milestone 4
