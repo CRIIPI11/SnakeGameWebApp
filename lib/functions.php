@@ -131,3 +131,107 @@ function get_url($dest)
     //handle relative path
     return $BASE_PATH . $dest;
 }
+
+function save_score($user_id, $score, $showflash = true)
+{
+
+    if ($user_id < 1) {
+        flash("not login", "warning");
+        return;
+    }
+
+    if ($score <= 0) {
+        flash("zero score not valid", "warning");
+        return;
+    }
+
+    $db = getDB();
+    $stmt = $db->prepare("INSERT INTO Scores(user_id, score) VALUES (:userid, :score)");
+    try {
+        $stmt->execute([":userid" => $user_id, ":score" => $score]);
+        if ($showflash) {
+            flash("Saved score of $score", "success");
+        }
+    } catch (PDOException $e) {
+        flash("Error saving score: " . var_export($e->errorInfo, true), "danger");
+    }
+}
+
+function get_user_scores($user_id, $min)
+{
+    if (!isset($min)) {
+        $min = 10;
+    }
+    $db = getDB();
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $stmt = $db->prepare("SELECT score, created from Scores where user_id = :id ORDER BY created desc LIMIT :min");
+    try {
+        $stmt->execute([":id" => $user_id, ":min" => $min]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            return $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error getting latest $min scores for user $user_id: " . var_export($e->errorInfo, true));
+    }
+    return [];
+}
+
+function get_top_week()
+{
+    $db = getDB();
+    $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
+    $query .= " WHERE Scores.created >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
+    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $stmt = $db->prepare($query);
+    $results = [];
+    try {
+        $stmt->execute();
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching scores for weak: " . var_export($e->errorInfo, true));
+    }
+    return $results;
+}
+
+function get_top_month()
+{
+    $db = getDB();
+    $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
+    $query .= " WHERE Scores.created >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
+    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $stmt = $db->prepare($query);
+    $results = [];
+    try {
+        $stmt->execute();
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching scores for weak: " . var_export($e->errorInfo, true));
+    }
+    return $results;
+}
+
+function get_top_lifetime()
+{
+    $db = getDB();
+    $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
+    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $stmt = $db->prepare($query);
+    $results = [];
+    try {
+        $stmt->execute();
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching scores for weak: " . var_export($e->errorInfo, true));
+    }
+    return $results;
+}
