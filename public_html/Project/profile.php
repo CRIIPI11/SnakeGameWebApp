@@ -103,11 +103,11 @@ $user_id = get_user_id();
 
     <div>
 
-        <h3>Score History</h3>
+        <h2>Score History</h2>
         <form method="POST">
-            <label for="last">Last</label>
-            <select name="top">
-                <option selected disabled>top</option>
+            <label class="h3" for="last">Top</label>
+            <select class="form-select" aria-label="Default select example" name="top">
+                <option selected disabled>--Select--</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -116,11 +116,12 @@ $user_id = get_user_id();
             <input type="submit" class="mt-3 btn btn-primary" name="submit" value="submit">
         </form>
         <?php
-        $get_top = $_POST['top'];
-        $scores = get_user_scores($user_id, $get_top);
+
+        $top = se($_POST, "top", "10", false);
+        $scores = get_user_scores($user_id, $top);
         ?>
 
-        <table class="table text-light">
+        <table class="table table-success table-striped">
             <thead>
                 <th>Score</th>
                 <th>Time</th>
