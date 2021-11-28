@@ -191,10 +191,11 @@
   - [x] \(11/25/2021) Create functions that output the scoreboards 
     - List of Evidence of Feature Completion
       - Status: Completed
+      - Direct Link: (Not accesible from browser)
       - Pull Requests
         - PR link: https://github.com/CRIIPI11/IT202-005/pull/50 
       - Screenshots
-        - ![image](https://user-images.githubusercontent.com/60235905/143728721-98c386d8-1bf4-45a9-9af2-8b9263730be5.png)
+        - ![image](https://user-images.githubusercontent.com/60235905/143730043-cce7384b-fb57-438f-9a15-386c833d3807.png)
         - ![image](https://user-images.githubusercontent.com/60235905/143728915-42222d58-a9a2-4c51-8b25-8949f6b105e0.png)
           - Screenshot Description: Here we can see there are three different functions, each will be used separately to display the scoreboard for the past week, month, and lifetime.
 
