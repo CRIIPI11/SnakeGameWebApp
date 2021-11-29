@@ -71,6 +71,7 @@ if (isset($_POST["save"])) {
 <?php
 $email = get_user_email();
 $username = get_username();
+$user_id = get_user_id();
 ?>
 <div class="container-fluid">
     <h1>Profile</h1>
@@ -99,6 +100,42 @@ $username = get_username();
         </div>
         <input type="submit" class="mt-3 btn btn-primary" value="Update Profile" name="save" />
     </form>
+
+    <div>
+
+        <h2>Score History</h2>
+        <form method="POST">
+            <label class="h3" for="last">Top</label>
+            <select class="form-select" aria-label="Default select example" name="top">
+                <option selected disabled>--Select--</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <input type="submit" class="mt-3 btn btn-primary" name="submit" value="submit">
+        </form>
+        <?php
+
+        $top = se($_POST, "top", "10", false);
+        $scores = get_user_scores($user_id, $top);
+        ?>
+
+        <table class="table table-success table-striped">
+            <thead>
+                <th>Score</th>
+                <th>Time</th>
+            </thead>
+            <tbody>
+                <?php foreach ($scores as $score) : ?>
+                    <tr>
+                        <td><?php se($score, "score", 0); ?></td>
+                        <td><?php se($score, "created", "-"); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 <script>
     function validate(form) {
