@@ -235,3 +235,20 @@ function get_top_lifetime()
     }
     return $results;
 }
+
+function user_points($user_id)
+{
+
+    $db = getDB();
+    $stmt = $db->prepare("SELECT points, created from Users where id = :id");
+    try {
+        $stmt->execute([":id" => $user_id]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            return $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error getting points for user $user_id: " . var_export($e->errorInfo, true));
+    }
+    return $r;
+}

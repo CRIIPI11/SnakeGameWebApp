@@ -102,6 +102,10 @@ $user_id = get_user_id();
     </form>
 
     <div>
+        <h2>Points</h2>
+        <?php
+        $points = user_points($user_id);
+        se($points, "points", 0); ?>
 
         <h2>Score History</h2>
         <form method="POST">
@@ -119,6 +123,8 @@ $user_id = get_user_id();
 
         $top = se($_POST, "top", "10", false);
         $scores = get_user_scores($user_id, $top);
+
+
         ?>
 
         <table class="table table-success table-striped">
