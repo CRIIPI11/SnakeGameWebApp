@@ -235,3 +235,48 @@ function get_top_lifetime()
     }
     return $results;
 }
+
+function save_points($user_id, $points)
+{
+
+    if ($user_id < 1) {
+        flash("not login", "warning");
+        return;
+    }
+
+    if ($points <= 0) {
+        return;
+    }
+
+    $db = getDB();
+    $stmt = $db->prepare("INSERT INTO PointsHistory(user_id, point_change) VALUES (:userid, :points)");
+    try {
+        $stmt->execute([":userid" => $user_id, ":points" => $points]);
+    } catch (PDOException $e) {
+        flash("Error saving score: " . var_export($e->errorInfo, true), "danger");
+    }
+}
+
+function update_points($user_id)
+{
+    $db = getDB();
+    $query = "UPDATE Users set points = (SELECT IFNULL(SUM(point_change), 0) from PointsHistory WHERE user_id = :id) where id = :id";
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute([":id" => $user_id]);
+    } catch (PDOException $e) {
+        error_log("Error " . var_export($e->errorInfo, true));
+    }
+}
+
+function user_points($user_id)
+{
+    $db = getDB();
+    $stmt = $db->prepare("SELECT points from Users where id = :id");
+    try {
+        $stmt->execute([":id" => $user_id]);
+    } catch (PDOException $e) {
+        error_log("Error" . var_export($e->errorInfo, true));
+    }
+    return $stmt;
+}
