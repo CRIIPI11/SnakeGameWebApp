@@ -236,22 +236,21 @@ function get_top_lifetime()
     return $results;
 }
 
-function save_points($user_id, $points)
+function save_points($user_id, $points, $reason = null)
 {
 
     if ($user_id < 1) {
-        flash("not login", "warning");
         return;
     }
 
-    if ($points <= 0) {
+    /*if ($points <= 0) {
         return;
-    }
+    }*/
 
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO PointsHistory(user_id, point_change) VALUES (:userid, :points)");
+    $stmt = $db->prepare("INSERT INTO PointsHistory(user_id, point_change, reason) VALUES (:userid, :points, :reason)");
     try {
-        $stmt->execute([":userid" => $user_id, ":points" => $points]);
+        $stmt->execute([":userid" => $user_id, ":points" => $points, ":reason" => $reason]);
     } catch (PDOException $e) {
         flash("Error saving score: " . var_export($e->errorInfo, true), "danger");
     }
@@ -269,14 +268,11 @@ function update_points($user_id)
     }
 }
 
-function user_points($user_id)
+
+function get_points()
 {
-    $db = getDB();
-    $stmt = $db->prepare("SELECT points from Users where id = :id");
-    try {
-        $stmt->execute([":id" => $user_id]);
-    } catch (PDOException $e) {
-        error_log("Error" . var_export($e->errorInfo, true));
+    if (is_logged_in()) {
+        return se($_SESSION["user"], "points", "", false);
     }
-    return $stmt;
+    return "";
 }

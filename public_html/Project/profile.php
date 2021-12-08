@@ -104,8 +104,8 @@ $user_id = get_user_id();
     <div>
         <h2>Points</h2>
         <?php
-        $points = user_points($user_id);
-        se($points, "points", 0); ?>
+        se(get_points());
+        ?>
 
         <h2>Score History</h2>
         <form method="POST">

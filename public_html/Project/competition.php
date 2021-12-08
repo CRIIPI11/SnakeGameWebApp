@@ -1,6 +1,44 @@
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
-is_logged_in(!true);
+is_logged_in(true);
+$user_id = get_user_id();
+
+if (isset($_POST["name"]) && !empty($_POST["name"])) {
+    $name = se($_POST, "name", "N/A", false);
+    $SR = (int)se($_POST, "starting_reward", "1", false);
+    $ms = (int)se($_POST, "min_score", "1", false);
+    $mp = (int)se($_POST, "min_particpitants", "4", false);
+    $jf = (int)se($_POST, "join_fee", "1", false);
+    $duration = (int)se($_POST, "duration", "5", false);
+    $first = (int)se($_POST, "first_place_per", "70", false);
+    $second = (int)se($_POST, "second_place_per", "20", false);
+    $third = (int)se($_POST, "third_place_per", "10", false);
+    $cost = (int)se($_POST, "starting_reward", 0, false);
+    $cost++;
+    $cost += (int)se($_POST, "join_cost", 0, false);
+
+    if ($cost > get_points()) {
+        $db = getDB();
+        $db->beginTransaction();
+        if (save_points($user_id, -$cost, "created competition")) {
+            $query = "INSERT INTO Competitions(name, duration, starting_reward, join_fee, min_participants, min_score, first_place_per, second_place_per, third_place_per, cost_to_create) VALUES(:name, :duration, :startingr, :joinfee, :mp, :ms, :fp, :sp, :tp, :cost)";
+
+            $comp_id = $db->lastInsertId();
+            if ($comp_id > 0) {
+                flash("competition created", "success");
+                $db->commit();
+            } else {
+                $db->rollback();
+            }
+        } else {
+            flash("There was a problem deducting points", "warning");
+            $db->rollback();
+        }
+    } else {
+        flash("no points", "warning");
+    }
+}
+
 ?>
 
 <div class="container-fluid">

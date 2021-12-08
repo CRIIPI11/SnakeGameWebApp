@@ -159,7 +159,9 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
         if (gameover()) {
             console.log(score);
             sscore();
-            spoints();
+            if (points > 0) {
+                spoints();
+            }
             return;
         }
         erase();

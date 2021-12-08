@@ -24,5 +24,7 @@ CREATE Table if NOT exists `Competitions`(
   check (min_participants >= 3),
   check (current_participants >= 0),
   check(join_fee >= 0),
-  PRIMARY KEY (`id`)
+  check(
+    first_place_per + second_place_per + third_place_per = 100
+  ) PRIMARY KEY (`id`)
 )
