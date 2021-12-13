@@ -236,22 +236,22 @@ function get_top_lifetime()
     return $results;
 }
 
-function save_points($user_id, $points)
+function save_points($user_id, $points, $reason = null)
 {
 
     if ($user_id < 1) {
-        flash("not login", "warning");
         return;
     }
 
-    if ($points <= 0) {
+    /*if ($points <= 0) {
         return;
-    }
+    }*/
 
     $db = getDB();
-    $stmt = $db->prepare("INSERT INTO PointsHistory(user_id, point_change) VALUES (:userid, :points)");
+    $stmt = $db->prepare("INSERT INTO PointsHistory(user_id, point_change, reason) VALUES (:userid, :points, :reason)");
     try {
-        $stmt->execute([":userid" => $user_id, ":points" => $points]);
+        $stmt->execute([":userid" => $user_id, ":points" => $points, ":reason" => $reason]);
+        update_points($user_id);
     } catch (PDOException $e) {
         flash("Error saving score: " . var_export($e->errorInfo, true), "danger");
     }
@@ -269,14 +269,73 @@ function update_points($user_id)
     }
 }
 
-function user_points($user_id)
+
+function get_points()
+{
+    if (is_logged_in()) {
+        return se($_SESSION["user"], "points", "", false);
+    }
+    return "";
+}
+
+function join_competition($comp_id, $user_id)
+{
+    $points = get_points();
+    if ($comp_id > 0) {
+        $db = getDB();
+        $query = "SELECT name, join_fee, current_participants from Competitions where id = :cid";
+        $stmt = $db->prepare($query);
+        try {
+            $stmt->execute([":cid" => $comp_id]);
+            $d = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($d) {
+                $cost = (int)se($d, "join_fee", 0, false);
+                $participants = (int)se($d, "current_participants");
+                if ($participants <= 0) {
+                    competition_attach($comp_id, $user_id);
+                } else if ($points >= $cost) {
+                    if (competition_attach($comp_id, $user_id)) {
+                        save_points($user_id, -$cost, "joined competition");
+                        $name = se($d, "name", "", false);
+                        flash("Successfully joined $name", "success");
+                    } else {
+                        flash("Already in Competition", "warning");
+                    }
+                } else {
+                    flash("You can't afford to join this competition", "warning");
+                }
+            }
+        } catch (PDOException $e) {
+            error_log("error " . var_export($e, true));
+        }
+    } else {
+        flash("Invalid competition, please try again", "danger");
+    }
+}
+function competition_attach($comp_id, $user_id)
 {
     $db = getDB();
-    $stmt = $db->prepare("SELECT points from Users where id = :id");
+    $query = "INSERT INTO CompetitionParticipants (comp_id, user_id) VALUES (:cid, :uid)";
+    $stmt = $db->prepare($query);
     try {
-        $stmt->execute([":id" => $user_id]);
+        $stmt->execute([":cid" => $comp_id, ":uid" => $user_id]);
+        update_participants($comp_id);
+        return true;
     } catch (PDOException $e) {
-        error_log("Error" . var_export($e->errorInfo, true));
+        error_log("error: " . var_export($e, true));
     }
-    return $stmt;
+    return false;
+}
+function update_participants($comp_id)
+{
+    $db = getDB();
+    $query = "UPDATE Competitions set current_participants = (SELECT IFNULL(COUNT(1),0) FROM CompetitionParticipants WHERE comp_id = :cid), current_reward = IF(join_fee > 0, current_reward + CEILING(join_fee * 0.5), current_reward) WHERE id = :cid";
+    $stmt = $db->prepare($query);
+    try {
+        $stmt->execute([":cid" => $comp_id]);
+        return true;
+    } catch (PDOException $e) {
+        error_log("error: " . var_export($e, true));
+    }
+    return false;
 }

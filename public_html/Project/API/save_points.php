@@ -24,8 +24,7 @@ if (isset($points)) {
     if (!$reject) {
         $points = (int)se($points, "points", 0, false);
         http_response_code(200);
-        save_points($user_id, $points);
-        update_points($user_id);
+        save_points($user_id, $points, "game");
         error_log("Points of $points saved successfully for $user_id");
         $response["message"] = "Points saved";
     }
