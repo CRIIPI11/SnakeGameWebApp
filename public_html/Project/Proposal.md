@@ -209,8 +209,8 @@
     - Pull Requests
       - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/57
     - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+      - ![image](https://user-images.githubusercontent.com/60235905/145753740-09cee869-6368-4ecf-9bf1-303d48700ab6.png)
+        - Screenshot #1 description: As of now, the points for the user are shown on the profile page, these points are obtained through the game. (my points are in negative as I was deducting point when creating competitions, but for regular users points wont be less than 0)
 
   - [x] \(12/05/2021) Create a PointsHistory table
 
@@ -220,8 +220,8 @@
     - Pull Requests
       - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/57
     - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+      - Screenshot #1 ![image](https://user-images.githubusercontent.com/60235905/145753990-32bbfea1-7a97-483c-80fb-13777ada4fed.png)
+        - Screenshot #1 description: Here we can see the points history table and we see how many points was decuted for which user and the reason.
 
   - [x] \(12/06/2021) Competitions table should have the following columns (id, name, created, duration, expires (now + duration), current_reward, starting_reward, join_fee, current_participants, min_participants, paid_out (boolean), min_score, first_place_per, second_place_per, third_place_per, cost_to_create, created, modified)
 
@@ -231,8 +231,7 @@
     - Pull Requests
       - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
     - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+      - Screenshot #1 ![image](https://user-images.githubusercontent.com/60235905/145754119-34d703af-f265-476e-a02c-1ef67d317da5.png)
 
   - [x] \(12/08/2021) User will be able to create a competition
 
@@ -242,8 +241,8 @@
     - Pull Requests
       - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
     - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+      - Screenshot #1 ![image](https://user-images.githubusercontent.com/60235905/145754187-9cc695cd-db46-41c0-aec3-668ebd9c1657.png)
+        - Screenshot #1 description: On this page the user will be able to create a custom competition setting all details.
 
   - [x] \(12/10/2021) Each new participant causes the Reward value to increase by at least 1 or 50% of the joining fee rounded up
 
@@ -252,10 +251,7 @@
     - Direct Link: (Not accesible from browser)
     - Pull Requests
       - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
-    - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
-
+     
   - [x] \(12/11/2021) Have a page where the User can see active competitions (not expired)
 
     - List of Evidence of Feature Completion
@@ -264,8 +260,8 @@
     - Pull Requests
       - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
     - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+      - Screenshot #1 ![image](https://user-images.githubusercontent.com/60235905/145754489-490bef3b-3ad0-4646-a3d4-a7896d18884f.png)
+        - Screenshot #1 description: Here the user can see all active competition with their respective information.
 
   - [x] \(12/12/2021) Will need an association table CompetitionParticipants (id, comp_id, user_id, created)
 
@@ -275,9 +271,9 @@
     - Pull Requests
       - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
     - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
-
+      - Screenshot #1 ![image](https://user-images.githubusercontent.com/60235905/145754607-1734420a-fcba-4164-87b7-a0d340b449e8.png)
+        - Screenshot #1 description: Here whe the user joins a competition it they get associate with the respective competition, making sure they only join once.
+        -
   - [x] \(12/12/2021) User can join active competitions
 
     - List of Evidence of Feature Completion
@@ -286,13 +282,13 @@
     - Pull Requests
       - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
     - Screenshots
-      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-        - Screenshot #1 description explaining what you're trying to show
+      - Screenshot #1 ![image](https://user-images.githubusercontent.com/60235905/145754700-7425f947-6454-4c84-ac58-6fc6cc59ce1d.png)
+        - Screenshot #1 description: On the active competitions page, the user will also have the chance to join any competition listed if they can afford it.
 
   - [ ] \(mm/dd/yyyy of completion) Create function that calculates competition winners
     - List of Evidence of Feature Completion
     - Status: Incomplete
-    - Explanation:
+    - Explanation: During the completation of the previous features, I was facing some errors which made them not work correctly, because of this I wasn't able to finish this feature on time but will have it done for final product.
 
 - Milestone 4
 
