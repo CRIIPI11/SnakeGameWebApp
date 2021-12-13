@@ -211,3 +211,6 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
     Draw();
 </script>
+<?php
+require(__DIR__ . "/../../../partials/flash.php");
+?>

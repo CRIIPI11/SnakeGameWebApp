@@ -39,7 +39,15 @@ require_once(__DIR__ . "/../lib/functions.php");
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('home.php'); ?>">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('profile.php'); ?>">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('Game/game.php'); ?>">Game</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo get_url('competition.php'); ?>">Competitions</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="rolesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Competitions
+                        </a>
+                        <ul class="dropdown-menu bg-warning" aria-labelledby="rolesDropdown">
+                            <li><a class="dropdown-item" href="<?php echo get_url('Competitions/competition.php'); ?>">Create Competition</a></li>
+                            <li><a class="dropdown-item" href="<?php echo get_url('Competitions/comp_list.php'); ?>">Active Competitions</a></li>
+                        </ul>
+                    </li>
                 <?php endif; ?>
                 <?php if (!is_logged_in()) : ?>
                     <li class="nav-item"><a class="nav-link" href="<?php echo get_url('login.php'); ?>">Login</a></li>
