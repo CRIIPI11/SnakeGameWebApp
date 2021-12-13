@@ -163,18 +163,18 @@
         - PR link: https://github.com/CRIIPI11/IT202-005/pull/47
       - Screenshots
         - ![image](https://user-images.githubusercontent.com/60235905/142943120-f772ada6-1a64-4b30-9d62-eaf499db6097.png))
-          - Screenshot Description: This is the base game, currently the game is pretty basic in all aspects, it will receive further updates.  
+          - Screenshot Description: This is the base game, currently the game is pretty basic in all aspects, it will receive further updates.
 
   - [x] \(11/22/2021) The system will save the user’s score at the end of the game if the user is logged in
 
     - List of Evidence of Feature Completion
       - Status: Completed
-      - Direct Link: https://cdm9-prod.herokuapp.com/Project/API/save_scores.php  https://cdm9-prod.herokuapp.com/Project/Game/game.php
+      - Direct Link: https://cdm9-prod.herokuapp.com/Project/API/save_scores.php https://cdm9-prod.herokuapp.com/Project/Game/game.php
       - Pull Requests
         - PR link: https://github.com/CRIIPI11/IT202-005/pull/48
       - Screenshots
         - ![image](https://user-images.githubusercontent.com/60235905/143727510-144c9b5b-f41d-46f5-8977-a40e0b85bcd6.png)
-          - Screenshot Description: After the game is over, we can see a successful message confirming the score has saved. 
+          - Screenshot Description: After the game is over, we can see a successful message confirming the score has saved.
 
   - [x] \(11/27/2021) The user will be able to see their last 10 scores
 
@@ -186,114 +186,113 @@
         - PR link #2: https://github.com/CRIIPI11/IT202-005/pull/50
       - Screenshots
         - ![image](https://user-images.githubusercontent.com/60235905/143728097-70d33f81-a5df-41f8-8822-8ff5ec24304c.png)
-          - Screenshot Description: On the profile page, the user will be able to see a table showing scores. The table will show the last 10 scores by default but they will also have the chance to choose the amount from 5 to 20. 
+          - Screenshot Description: On the profile page, the user will be able to see a table showing scores. The table will show the last 10 scores by default but they will also have the chance to choose the amount from 5 to 20.
 
-  - [x] \(11/25/2021) Create functions that output the scoreboards 
+  - [x] \(11/25/2021) Create functions that output the scoreboards
     - List of Evidence of Feature Completion
       - Status: Completed
       - Direct Link: (Not accesible from browser)
       - Pull Requests
-        - PR link: https://github.com/CRIIPI11/IT202-005/pull/50 
+        - PR link: https://github.com/CRIIPI11/IT202-005/pull/50
       - Screenshots
         - ![image](https://user-images.githubusercontent.com/60235905/143730043-cce7384b-fb57-438f-9a15-386c833d3807.png)
         - ![image](https://user-images.githubusercontent.com/60235905/143728915-42222d58-a9a2-4c51-8b25-8949f6b105e0.png)
           - Screenshot Description: Here we can see there are three different functions, each will be used separately to display the scoreboard for the past week, month, and lifetime.
 
 - Milestone 3
-  
-  - [ ] \(mm/dd/yyyy of completion) Users will have points associated with their account.
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
 
-  - [ ] \(mm/dd/yyyy of completion) Create a PointsHistory table (id, user_id, point_change, reason, created)
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+  - [x] \(12/05/2021) Users will have points associated with their account
 
-  - [ ] \(mm/dd/yyyy of completion) Competitions table should have the following columns (id, name, created, duration, expires (now + duration), current_reward, starting_reward, join_fee, current_participants, min_participants, paid_out (boolean), min_score, first_place_per, second_place_per, third_place_per, cost_to_create, created, modified)
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+    - List of Evidence of Feature Completion
+    - Status: Completed
+    - Direct Link: https://cdm9-dev.herokuapp.com/Project/sql/007_alter_table_users_points.sql
+    - Pull Requests
+      - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/57
+    - Screenshots
+      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+        - Screenshot #1 description explaining what you're trying to show
 
-  - [ ] \(mm/dd/yyyy of completion) User will be able to create a competition
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+  - [x] \(12/05/2021) Create a PointsHistory table
 
-  - [ ] \(mm/dd/yyyy of completion) Each new participant causes the Reward value to increase by at least 1 or 50% of the joining fee rounded up
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+    - List of Evidence of Feature Completion
+    - Status: Completed
+    - Direct Link: https://cdm9-dev.herokuapp.com/Project/sql/008_create_table_pointshistory.sql
+    - Pull Requests
+      - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/57
+    - Screenshots
+      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+        - Screenshot #1 description explaining what you're trying to show
 
-  - [ ] \(mm/dd/yyyy of completion) Have a page where the User can see active competitions (not expired)
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+  - [x] \(12/06/2021) Competitions table should have the following columns (id, name, created, duration, expires (now + duration), current_reward, starting_reward, join_fee, current_participants, min_participants, paid_out (boolean), min_score, first_place_per, second_place_per, third_place_per, cost_to_create, created, modified)
 
-  - [ ] \(mm/dd/yyyy of completion) Will need an association table CompetitionParticipants (id, comp_id, user_id, created)
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+    - List of Evidence of Feature Completion
+    - Status: Completed
+    - Direct Link: https://cdm9-dev.herokuapp.com/Project/sql/008_create_table_pointshistory.sql
+    - Pull Requests
+      - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
+    - Screenshots
+      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+        - Screenshot #1 description explaining what you're trying to show
 
-  - [ ] \(mm/dd/yyyy of completion) User can join active competitions
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
+  - [x] \(12/08/2021) User will be able to create a competition
+
+    - List of Evidence of Feature Completion
+    - Status: Completed
+    - Direct Link: https://cdm9-dev.herokuapp.com/Project/Competitions/competition.php
+    - Pull Requests
+      - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
+    - Screenshots
+      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+        - Screenshot #1 description explaining what you're trying to show
+
+  - [x] \(12/10/2021) Each new participant causes the Reward value to increase by at least 1 or 50% of the joining fee rounded up
+
+    - List of Evidence of Feature Completion
+    - Status: Completed
+    - Direct Link: (Not accesible from browser)
+    - Pull Requests
+      - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
+    - Screenshots
+      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+        - Screenshot #1 description explaining what you're trying to show
+
+  - [x] \(12/11/2021) Have a page where the User can see active competitions (not expired)
+
+    - List of Evidence of Feature Completion
+    - Status: Completed
+    - Direct Link: https://cdm9-dev.herokuapp.com/Project/Competitions/comp_list.php
+    - Pull Requests
+      - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
+    - Screenshots
+      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+        - Screenshot #1 description explaining what you're trying to show
+
+  - [x] \(12/12/2021) Will need an association table CompetitionParticipants (id, comp_id, user_id, created)
+
+    - List of Evidence of Feature Completion
+    - Status: Completed
+    - Direct Link: https://cdm9-dev.herokuapp.com/Project/sql/010_create_table_competitions_participants.sql
+    - Pull Requests
+      - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
+    - Screenshots
+      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+        - Screenshot #1 description explaining what you're trying to show
+
+  - [x] \(12/12/2021) User can join active competitions
+
+    - List of Evidence of Feature Completion
+    - Status: Completed
+    - Direct Link: https://cdm9-dev.herokuapp.com/Project/Competitions/comp_list.php
+    - Pull Requests
+      - PR link #1 https://github.com/CRIIPI11/IT202-005/pull/69
+    - Screenshots
+      - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
+        - Screenshot #1 description explaining what you're trying to show
 
   - [ ] \(mm/dd/yyyy of completion) Create function that calculates competition winners
-    -  List of Evidence of Feature Completion
-      - Status: Pending (Completed, Partially working, Incomplete, Pending)
-      - Direct Link: (Direct link to the file or files in heroku prod for quick testing (even if it's a protected page))
-      - Pull Requests
-        - PR link #1 (repeat as necessary)
-      - Screenshots
-        - Screenshot #1 (paste the image so it uploads to github) (repeat as necessary)
-          - Screenshot #1 description explaining what you're trying to show
-
-
-
-
+    - List of Evidence of Feature Completion
+    - Status: Incomplete
+    - Explanation:
 
 - Milestone 4
 
