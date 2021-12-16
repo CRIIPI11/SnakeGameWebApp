@@ -31,6 +31,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
     let yvelocity = 0;
 
     let score = 0;
+    let points = 0;
 
     function erase() {
         context.fillStyle = 'black';
@@ -67,6 +68,9 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
             taillength++;
             score++;
 
+            if (score > 0 && score % 20 == 0) {
+                points++;
+            }
         }
     }
 
@@ -125,11 +129,25 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
-                score: score
+                "score": score
             })
         }).then(async res => {
             let score = await res.json();
-            console.log("score", score);
+        })
+    }
+
+    function spoints() {
+
+        fetch("../API/save_points.php", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                "point": points
+            })
+        }).then(async res => {
+            let score = await res.json();
         })
 
     }
@@ -141,6 +159,9 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
         if (gameover()) {
             console.log(score);
             sscore();
+            if (points > 0) {
+                spoints();
+            }
             return;
         }
         erase();
@@ -190,3 +211,6 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
     Draw();
 </script>
+<?php
+require(__DIR__ . "/../../../partials/flash.php");
+?>
