@@ -14,11 +14,11 @@
   background-color: teal;
 }
 nav li {
-  display: inline;
+  display: inline-block;
   margin-right: 10px;
   padding: 5px;
   background-color: rgb(222, 255, 104);
-  border: solid 1px blue;
+  border: solid 2px rgb(0, 0, 0);
 }
 nav li a {
   color: rgb(5, 8, 202);
