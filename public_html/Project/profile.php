@@ -173,7 +173,10 @@ try {
                 <th>Time</th>
             </thead>
             <tbody>
-                <?php foreach ($scores as $score) : ?>
+                <?php
+                $per_page = 5;
+                paginate("SELECT count(1) as total FROM Scores", null, $per_page);
+                foreach ($scores as $score) : ?>
                     <tr>
                         <td><?php se($score, "score", 0); ?></td>
                         <td><?php se($score, "created", "-"); ?></td>
@@ -181,6 +184,7 @@ try {
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
     </div>
     <div>
         <?php $comps = user_comp_history($user_id);
