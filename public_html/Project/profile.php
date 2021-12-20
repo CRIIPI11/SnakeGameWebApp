@@ -182,6 +182,30 @@ try {
             </tbody>
         </table>
     </div>
+    <div>
+        <?php $comps = user_comp_history($user_id);
+        $time = date("Y/m/d"); ?>
+        <h3>My Competition History</h3>
+        <table class="table text-light">
+            <thead>
+                <th>name</th>
+                <th>Status</th>
+            </thead>
+            <tbody>
+                <?php foreach ($comps as $comp) : ?>
+                    <tr>
+                        <td><?php se($comp, "name", ""); ?></td>
+                        <?php if (se($comp, "expires", "-", false) < $time) : ?>
+                            <td>Expired</td>
+                        <?php else : ?>
+                            <td>Active</td>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <script>
     function validate(form) {

@@ -352,8 +352,8 @@ function top_comp_scores($comp_id, $limit = 10)
     //Below if a user can't win more than one place
     $stmt = $db->prepare("SELECT * FROM (SELECT s.user_id, s.score, s.created, a.id as account_id, DENSE_RANK() OVER (PARTITION BY s.user_id ORDER BY s.score desc) as `rank` FROM Scores s
     JOIN CompetitionParticipants uc on uc.user_id = s.user_id
-    JOIN Competitions c on uc.competition_id = c.id
-    JOIN Users a on a.user_id = s.user_id
+    JOIN Competitions c on uc.comp_id = c.id
+    JOIN Users a on a.id = s.user_id
     WHERE c.id = :cid AND s.created BETWEEN uc.created AND c.expires
     )as t where `rank` = 1 ORDER BY score desc LIMIT :limit");
     $scores = [];
@@ -463,4 +463,23 @@ function calc_win()
         error_log("Closing invalid comps error: " . var_export($e, true));
     }
     //elog("Done calc winners");
+}
+
+function user_comp_history($user_id)
+{
+
+    $db = getDB();
+    $query = "SELECT Competitions.id, name, expires from Competitions join CompetitionParticipants on CompetitionParticipants.comp_id=Competitions.id where CompetitionParticipants.user_id=:uid LIMIT 10";
+    $stmt = $db->prepare($query);
+    $results = [];
+    try {
+        $stmt->execute([":uid" => $user_id]);
+        $r = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($r) {
+            $results = $r;
+        }
+    } catch (PDOException $e) {
+        error_log("Error fetching scores for weak: " . var_export($e->errorInfo, true));
+    }
+    return $results;
 }
