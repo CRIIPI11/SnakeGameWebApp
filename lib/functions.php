@@ -157,11 +157,9 @@ function save_score($user_id, $score, $showflash = true)
     }
 }
 
-function get_user_scores($user_id, $min)
+function get_user_scores($user_id, $min = 10)
 {
-    if (!isset($min)) {
-        $min = 10;
-    }
+
     $db = getDB();
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     $stmt = $db->prepare("SELECT score, created from Scores where user_id = :id ORDER BY created desc LIMIT :min");
