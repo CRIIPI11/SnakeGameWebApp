@@ -1,53 +1,74 @@
 <?php
 require_once(__DIR__ . "/../../partials/nav.php");
-is_logged_in(true);
+//is_logged_in(true);
+
+$user_id = se($_GET, "id", get_user_id(), false);
+$PUser = $user_id === get_user_id();
+$edit = !!se($_GET, "edit", false, false);
+if ($user_id < 1) {
+    flash("Invalid user", "danger");
+    die(header("Location: home.php"));
+}
 ?>
 <?php
-if (isset($_POST["save"])) {
+if (isset($_POST["save"]) && $PUser && $edit) {
+
+    $db = getDB();
     $email = se($_POST, "email", null, false);
     $username = se($_POST, "username", null, false);
+    $public = !!se($_POST, "public", false, false) ? 1 : 0;
+    $hasError = false;
 
-    $params = [":email" => $email, ":username" => $username, ":id" => get_user_id()];
-    $db = getDB();
-    $stmt = $db->prepare("UPDATE Users set email = :email, username = :username where id = :id");
-    try {
-        $stmt->execute($params);
-    } catch (Exception $e) {
-        users_check_duplicate($e->errorInfo);
+    $email = sanitize_email($email);
+
+    if (!is_valid_email($email)) {
+        flash("Invalid email address", "danger");
+        $hasError = true;
     }
-    //select fresh data from table
-    $stmt = $db->prepare("SELECT id, email, IFNULL(username, email) as `username` from Users where id = :id LIMIT 1");
+    if (!preg_match('/^[a-z0-9_-]{3,16}$/i', $username)) {
+        flash("Username must only be alphanumeric and can only contain - or _", "danger");
+        $hasError = true;
+    }
+    if (!$hasError) {
+        $params = [":email" => $email, ":username" => $username, ":id" => get_user_id(), ":pub" => $public];
+        $stmt = $db->prepare("UPDATE Users set email = :email, username = :username, public = :pub where id = :id");
+        try {
+            $stmt->execute($params);
+            flash("Profile Updated Successfully", "success");
+        } catch (Exception $e) {
+            users_check_duplicate($e->errorInfo);
+            flash("Somthing Went wrong, Please Try Again", "warning");
+        }
+    }
+
+    $query = "SELECT id, email, IFNULL(username, email) as `username` from Users where id = :id LIMIT 1";
+    $stmt = $db->prepare($query);
     try {
         $stmt->execute([":id" => get_user_id()]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user) {
-            //$_SESSION["user"] = $user;
             $_SESSION["user"]["email"] = $user["email"];
             $_SESSION["user"]["username"] = $user["username"];
         } else {
-            flash("User doesn't exist", "danger");
+            flash("User not found", "danger");
         }
     } catch (Exception $e) {
-        flash("An unexpected error occurred, please try again", "danger");
-        //echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+        flash("Error occurred, please try again", "danger");
     }
-
-
     //check/update password
     $current_password = se($_POST, "currentPassword", null, false);
     $new_password = se($_POST, "newPassword", null, false);
     $confirm_password = se($_POST, "confirmPassword", null, false);
     if (!empty($current_password) && !empty($new_password) && !empty($confirm_password)) {
         if ($new_password === $confirm_password) {
-            //TODO validate current
             $stmt = $db->prepare("SELECT password from Users where id = :id");
             try {
                 $stmt->execute([":id" => get_user_id()]);
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 if (isset($result["password"])) {
                     if (password_verify($current_password, $result["password"])) {
-                        $query = "UPDATE Users set password = :password where id = :id";
-                        $stmt = $db->prepare($query);
+                        $query2 = "UPDATE Users set password = :password where id = :id";
+                        $stmt = $db->prepare($query2);
                         $stmt->execute([
                             ":id" => get_user_id(),
                             ":password" => password_hash($new_password, PASSWORD_BCRYPT)
@@ -62,7 +83,7 @@ if (isset($_POST["save"])) {
                 echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
             }
         } else {
-            flash("New passwords don't match", "warning");
+            flash("Passwords don't match", "warning");
         }
     }
 }
@@ -71,76 +92,144 @@ if (isset($_POST["save"])) {
 <?php
 $email = get_user_email();
 $username = get_username();
-$user_id = get_user_id();
+$created = "";
+$public = false;
+$db = getDB();
+$stmt = $db->prepare("SELECT username, created, public from Users where id = :id");
+try {
+    $stmt->execute([":id" => $user_id]);
+    $r = $stmt->fetch(PDO::FETCH_ASSOC);
+    $username = se($r, "username", "", false);
+    $created = se($r, "created", "", false);
+    $public = se($r, "public", 0, false) > 0;
+    if (!$public && !$PUser) {
+        flash("User's profile is private", "warning");
+        die(header("Location: profile.php"));
+    }
+} catch (Exception $e) {
+    echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
+}
 ?>
 <div class="container-fluid">
-    <h1>Profile</h1>
-    <form method="POST" onsubmit="return validate(this);">
-        <div class="mb-3">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
+    <h1 class="fw-bold mb-2 text-uppercase">Profile</h1>
+    <?php if ($PUser) : ?>
+        <?php if ($edit) : ?>
+            <div class="mb-3">
+                <a class="btn btn-secondary" href="?">View</a>
+            </div>
+        <?php else : ?>
+            <div class="mb-3">
+                <a class="btn btn-secondary" href="?edit=true">Edit</a>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <?php if (!$edit) : ?>
+        <div>
+            <h3>Username: <?php se($username); ?></h3>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="username">Username</label>
-            <input class="form-control" type="text" name="username" id="username" value="<?php se($username); ?>" />
+        <div>
+            <h3>Joined: <?php se($created); ?></h3>
         </div>
-        <!-- DO NOT PRELOAD PASSWORD -->
-        <div class="mb-3">Password Reset</div>
-        <div class="mb-3">
-            <label class="form-label" for="cp">Current Password</label>
-            <input class="form-control" type="password" name="currentPassword" id="cp" />
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="np">New Password</label>
-            <input class="form-control" type="password" name="newPassword" id="np" />
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="conp">Confirm Password</label>
-            <input class="form-control" type="password" name="confirmPassword" id="conp" />
-        </div>
-        <input type="submit" class="mt-3 btn btn-primary" value="Update Profile" name="save" />
-    </form>
+
+    <?php endif; ?>
+
+    <?php if ($PUser && $edit) : ?>
+
+        <form method="POST" onsubmit="return validate(this);">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-3">
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input name="public" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" <?php if ($public) echo "checked"; ?>>
+                        <label class="form-label" for="flexSwitchCheckDefault">Make Profile Public</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
+                </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-control form-control-lg" type="text" name="username" id="username" value="<?php se($username); ?>" />
+                </div>
+
+                <h1>Password Reset</h1>
+                <div class="mb-3">
+                    <label class="form-label" for="cp">Current Password</label>
+                    <input class="form-control" type="password" name="currentPassword" id="cp" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="np">New Password</label>
+                    <input class="form-control" type="password" name="newPassword" id="np" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="conp">Confirm Password</label>
+                    <input class="form-control" type="password" name="confirmPassword" id="conp" />
+                </div>
+                <input type="submit" class="btn btn-primary" value="Update Profile" name="save" />
+            </div>
+        </form>
+    <?php endif; ?>
 
     <div>
-        <h2>Points</h2>
-        <?php
-        se(get_points());
-        ?>
+        <?php $scores = get_user_scores($user_id); ?>
+        <div class="w-25 p-3">
+            <div class="container">
+                <div class="row">
+                    <div class="span5">
+                        <h3>Score History</h3>
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <th>Score</th>
+                                <th>Time</th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($scores as $score) : ?>
+                                    <tr>
+                                        <td><?php se($score, "score", 0); ?></td>
+                                        <td><?php se($score, "created", "-"); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <h2>Score History</h2>
-        <form method="POST">
-            <label class="h3" for="last">Top</label>
-            <select class="form-select" aria-label="Default select example" name="top">
-                <option selected disabled>--Select--</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-            <input type="submit" class="mt-3 btn btn-primary" name="submit" value="submit">
-        </form>
-        <?php
+    <div>
+        <?php $comps = user_comp_history($user_id);
+        $time = date("Y/m/d"); ?>
+        <div class="w-25 p-3">
+            <div class="container">
+                <div class="row">
+                    <div class="span5">
+                        <h3>Competition History</h3>
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <th>name</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($comps as $comp) : ?>
+                                    <tr>
+                                        <td><?php se($comp, "name", ""); ?></td>
+                                        <?php if (se($comp, "expires", "-", false) < $time) : ?>
+                                            <td><span class="label label-important">Expired</span></td>
+                                        <?php else : ?>
+                                            <td><span class="label label-success">Active</span>
+                                            <?php endif; ?>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        $top = se($_POST, "top", "10", false);
-        $scores = get_user_scores($user_id, $top);
-
-
-        ?>
-
-        <table class="table table-success table-striped">
-            <thead>
-                <th>Score</th>
-                <th>Time</th>
-            </thead>
-            <tbody>
-                <?php foreach ($scores as $score) : ?>
-                    <tr>
-                        <td><?php se($score, "score", 0); ?></td>
-                        <td><?php se($score, "created", "-"); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
     </div>
 </div>
 <script>
@@ -172,6 +261,12 @@ $user_id = get_user_id();
         return isValid;
     }
 </script>
+<style>
+    .form-label {
+        font-weight: bolder;
+    }
+</style>
+
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>

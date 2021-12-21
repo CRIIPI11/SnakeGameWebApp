@@ -2,8 +2,8 @@
 require(__DIR__ . "/../../../partials/nav.php"); ?>
 
 <link rel="stylesheet" href="Gstyles.css">
-<h1>Snake Game</h1>
-<canvas id="table" width="400px" height="400px"> </canvas>
+<h1 id="title">The Snake Game</h1>
+<canvas id="table" width="600px" height="600px"> </canvas>
 <script>
     const canvas = document.getElementById("table");
     const context = canvas.getContext("2d");
@@ -15,9 +15,9 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
         }
     }
 
-    let speed = 7;
+    let speed = 8;
 
-    let titleCount = 20;
+    let titleCount = 25;
     let titleSize = canvas.width / titleCount - 2;
     let headX = 10;
     let headY = 10;
@@ -40,7 +40,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
     function Snake() {
 
-        context.fillStyle = 'orange';
+        context.fillStyle = 'green';
         for (let i = 0; i < snakeParts.length; i++) {
             let part = snakeParts[i];
             context.fillRect(part.x * titleCount, part.y * titleCount, titleSize, titleSize);
@@ -51,7 +51,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
             snakeParts.shift();
         }
 
-        context.fillStyle = 'green';
+        context.fillStyle = 'purple';
         context.fillRect(headX * titleCount, headY * titleCount, titleSize, titleSize);
     }
 
@@ -95,11 +95,11 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
         //walls
         if (headX < 0) {
             gameOver = true;
-        } else if (headX >= titleCount) {
+        } else if (headX >= titleCount - 1) {
             gameOver = true;
         } else if (headY < 0) {
             gameOver = true;
-        } else if (headY >= titleCount) {
+        } else if (headY >= titleCount - 1) {
             gameOver = true;
         }
 
@@ -113,8 +113,9 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
         if (gameOver) {
             context.fillStyle = 'white';
-            context.font = '50px Verdana'
-            context.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
+            context.font = '60px Verdana'
+            context.fillText("Game Over", canvas.width / 4, canvas.height / 2);
+            context.fillText("Score: " + score, canvas.width / 3.5, canvas.height / 1.5);
             console.log(score);
         }
 
@@ -152,6 +153,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
     }
 
+
     function Draw() {
 
         changeposition();
@@ -170,8 +172,9 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
         Snake();
         dScore();
 
-        if (score > 2) {
-            speed = 11;
+
+        if (score > 5) {
+            speed = 10;
         }
         setTimeout(Draw, 1000 / speed)
     }

@@ -1,3 +1,9 @@
 canvas {
-  margin-left: 10em;
+  margin-left: 20%;
+  margin-bottom: 25px;
+}
+
+#title {
+  font-size: 70px;
+  margin-left: 22%;
 }
