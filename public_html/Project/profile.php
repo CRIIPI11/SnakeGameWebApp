@@ -189,7 +189,7 @@ try {
     <div>
         <?php $comps = user_comp_history($user_id);
         $time = date("Y/m/d"); ?>
-        <h3>My Competition History</h3>
+        <h3>Competition History</h3>
         <table class="table text-light">
             <thead>
                 <th>name</th>
