@@ -111,105 +111,126 @@ try {
 }
 ?>
 <div class="container-fluid">
-    <h1>Profile</h1>
+    <h1 class="fw-bold mb-2 text-uppercase">Profile</h1>
     <?php if ($PUser) : ?>
         <?php if ($edit) : ?>
             <div class="mb-3">
-                <a class="btn btn-primary" href="?">View</a>
+                <a class="btn btn-secondary" href="?">View</a>
             </div>
         <?php else : ?>
             <div class="mb-3">
-                <a class="btn btn-primary" href="?edit=true">Edit</a>
+                <a class="btn btn-secondary" href="?edit=true">Edit</a>
             </div>
         <?php endif; ?>
     <?php endif; ?>
 
     <?php if (!$edit) : ?>
-        <div>Username: <?php se($username); ?></div>
-        <div>Joined: <?php se($created); ?></div>
+        <div>
+            <h3>Username: <?php se($username); ?></h3>
+        </div>
+        <div>
+            <h3>Joined: <?php se($created); ?></h3>
+        </div>
 
     <?php endif; ?>
 
     <?php if ($PUser && $edit) : ?>
 
         <form method="POST" onsubmit="return validate(this);">
-            <div class="mb-3">
-                <div class="form-check form-switch">
-                    <input name="public" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" <?php if ($public) echo "checked"; ?>>
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Make Profile Public</label>
+            <div class="col-12 col-md-9 col-lg-7 col-xl-3">
+                <div class="mb-3">
+                    <div class="form-check form-switch">
+                        <input name="public" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" <?php if ($public) echo "checked"; ?>>
+                        <label class="form-label" for="flexSwitchCheckDefault">Make Profile Public</label>
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="email">Email</label>
-                <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="username">Username</label>
-                <input class="form-control" type="text" name="username" id="username" value="<?php se($username); ?>" />
-            </div>
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input class="form-control" type="email" name="email" id="email" value="<?php se($email); ?>" />
+                </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="username">Username</label>
+                    <input class="form-control form-control-lg" type="text" name="username" id="username" value="<?php se($username); ?>" />
+                </div>
 
-            <h1>Password Reset</h1>
-            <div class="mb-3">
-                <label class="form-label" for="cp">Current Password</label>
-                <input class="form-control" type="password" name="currentPassword" id="cp" />
+                <h1>Password Reset</h1>
+                <div class="mb-3">
+                    <label class="form-label" for="cp">Current Password</label>
+                    <input class="form-control" type="password" name="currentPassword" id="cp" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="np">New Password</label>
+                    <input class="form-control" type="password" name="newPassword" id="np" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="conp">Confirm Password</label>
+                    <input class="form-control" type="password" name="confirmPassword" id="conp" />
+                </div>
+                <input type="submit" class="btn btn-primary" value="Update Profile" name="save" />
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="np">New Password</label>
-                <input class="form-control" type="password" name="newPassword" id="np" />
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="conp">Confirm Password</label>
-                <input class="form-control" type="password" name="confirmPassword" id="conp" />
-            </div>
-            <input type="submit" class="mt-3 btn btn-primary" value="Update Profile" name="save" />
         </form>
     <?php endif; ?>
+
     <div>
         <?php $scores = get_user_scores($user_id); ?>
-        <h3>Score History</h3>
-        <table class="table text-light">
-            <thead>
-                <th>Score</th>
-                <th>Time</th>
-            </thead>
-            <tbody>
-                <?php
-                $per_page = 5;
-                paginate("SELECT count(1) as total FROM Scores", null, $per_page);
-                foreach ($scores as $score) : ?>
-                    <tr>
-                        <td><?php se($score, "score", 0); ?></td>
-                        <td><?php se($score, "created", "-"); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <?php include(__DIR__ . "/../../partials/pagination.php"); ?>
+        <div class="w-25 p-3">
+            <div class="container">
+                <div class="row">
+                    <div class="span5">
+                        <h3>Score History</h3>
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <th>Score</th>
+                                <th>Time</th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                foreach ($scores as $score) : ?>
+                                    <tr>
+                                        <td><?php se($score, "score", 0); ?></td>
+                                        <td><?php se($score, "created", "-"); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div>
         <?php $comps = user_comp_history($user_id);
         $time = date("Y/m/d"); ?>
-        <h3>Competition History</h3>
-        <table class="table text-light">
-            <thead>
-                <th>name</th>
-                <th>Status</th>
-            </thead>
-            <tbody>
-                <?php foreach ($comps as $comp) : ?>
-                    <tr>
-                        <td><?php se($comp, "name", ""); ?></td>
-                        <?php if (se($comp, "expires", "-", false) < $time) : ?>
-                            <td>Expired</td>
-                        <?php else : ?>
-                            <td>Active</td>
-                        <?php endif; ?>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+        <div class="w-25 p-3">
+            <div class="container">
+                <div class="row">
+                    <div class="span5">
+                        <h3>Competition History</h3>
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <th>name</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($comps as $comp) : ?>
+                                    <tr>
+                                        <td><?php se($comp, "name", ""); ?></td>
+                                        <?php if (se($comp, "expires", "-", false) < $time) : ?>
+                                            <td><span class="label label-important">Expired</span></td>
+                                        <?php else : ?>
+                                            <td><span class="label label-success">Active</span>
+                                            <?php endif; ?>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    </div>
 </div>
 <script>
     function validate(form) {
@@ -240,6 +261,12 @@ try {
         return isValid;
     }
 </script>
+<style>
+    .form-label {
+        font-weight: bolder;
+    }
+</style>
+
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>
