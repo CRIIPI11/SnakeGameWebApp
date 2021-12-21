@@ -15,14 +15,14 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
         }
     }
 
-    let speed = 7;
+    let speed = 8;
 
     let titleCount = 25;
-    let titleSize = canvas.width / titleCount;
+    let titleSize = canvas.width / titleCount - 2;
     let headX = 10;
     let headY = 10;
     const snakeParts = [];
-    let taillength = 1;
+    let taillength = 2;
 
     let appleX = 5;
     let appleY = 5;
@@ -113,8 +113,9 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
         if (gameOver) {
             context.fillStyle = 'white';
-            context.font = '50px Verdana'
-            context.fillText("Game Over!", canvas.width / 3.5, canvas.height / 2);
+            context.font = '60px Verdana'
+            context.fillText("Game Over", canvas.width / 4, canvas.height / 2);
+            context.fillText("Score: " + score, canvas.width / 3.5, canvas.height / 1.5);
             console.log(score);
         }
 
@@ -152,6 +153,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
     }
 
+
     function Draw() {
 
         changeposition();
@@ -170,8 +172,9 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
         Snake();
         dScore();
 
-        if (score > 2) {
-            speed = 11;
+
+        if (score > 5) {
+            speed = 10;
         }
         setTimeout(Draw, 1000 / speed)
     }

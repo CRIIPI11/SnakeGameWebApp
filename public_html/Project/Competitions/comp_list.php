@@ -32,8 +32,6 @@ if (isset($_POST["edit"])) {
         error_log("List competitions error: " . var_export($e, true));
     }
 }
-$per_page = 5;
-paginate("SELECT count(1) as total FROM Competitions WHERE expires > current_timestamp() AND pay_out < 1");
 
 $query = "SELECT id, name, expires, current_reward, join_fee, current_participants, min_participants, paid_out, min_score, first_place_per, second_place_per, third_place_per from Competitions WHERE paid_out <= 0 AND expires > current_timestamp() ORDER BY expires asc LIMIT 10";
 $stmt = $db->prepare($query);
@@ -141,5 +139,4 @@ require(__DIR__ . "/../../../partials/flash.php");
             <?php endif; ?>
         </tbody>
     </table>
-    <?php include(__DIR__ . "/../../../partials/pagination.php"); ?>
 </div>
