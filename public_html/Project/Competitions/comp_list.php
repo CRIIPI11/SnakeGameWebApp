@@ -87,6 +87,9 @@ require(__DIR__ . "/../../../partials/flash.php");
                                 <a class="btn btn-primary" href="?edit=true">Edit</a>
                             </td>
                         <?php endif; ?>
+                        <td>
+                            <a class="btn btn-secondary" href="view_competition.php?id=<?php se($row, 'id'); ?>">View</a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
 

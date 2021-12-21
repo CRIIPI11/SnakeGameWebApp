@@ -104,7 +104,7 @@ try {
     $public = se($r, "public", 0, false) > 0;
     if (!$public && !$PUser) {
         flash("User's profile is private", "warning");
-        die(header("Location: home.php"));
+        die(header("Location: profile.php"));
     }
 } catch (Exception $e) {
     echo "<pre>" . var_export($e->errorInfo, true) . "</pre>";
