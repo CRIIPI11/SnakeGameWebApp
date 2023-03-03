@@ -1,6 +1,3 @@
-<?php
-require(__DIR__ . "/../../../partials/nav.php"); ?>
-
 <link rel="stylesheet" href="Gstyles.css">
 <h1 id="title">The Snake Game</h1>
 <canvas id="table" width="600px" height="600px"> </canvas>
@@ -124,7 +121,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
     function sscore() {
 
-        fetch("../API/save_scores.php", {
+        fetch("API/save_scores.php", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -139,7 +136,7 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
     function spoints() {
 
-        fetch("../API/save_points.php", {
+        fetch("API/save_points.php", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -214,6 +211,3 @@ require(__DIR__ . "/../../../partials/nav.php"); ?>
 
     Draw();
 </script>
-<?php
-require(__DIR__ . "/../../../partials/flash.php");
-?>
