@@ -171,33 +171,6 @@ try {
         </form>
     <?php endif; ?>
 
-    <div>
-        <?php $scores = get_user_scores($user_id); ?>
-        <div class="w-25 p-3">
-            <div class="container">
-                <div class="row">
-                    <div class="span5">
-                        <h3>Score History</h3>
-                        <table class="table table-dark table-striped">
-                            <thead>
-                                <th>Score</th>
-                                <th>Time</th>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($scores as $score) : ?>
-                                    <tr>
-                                        <td><?php se($score, "score", 0); ?></td>
-                                        <td><?php se($score, "created", "-"); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div>
         <?php $comps = user_comp_history($user_id);
