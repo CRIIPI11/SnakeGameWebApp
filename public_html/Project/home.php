@@ -22,27 +22,25 @@ if (is_logged_in()) {
 
 <div class="row align-items-start">
 
-    <?php if (is_logged_in()) : ?>
+    <?php
+    $user_id = se($_GET, "id", get_user_id(), false);
+    if (is_logged_in()) : ?>
         <div class="col">
-            <?php $scoresw = get_top_week(); ?>
+            <?php $scores = get_user_scores($user_id); ?>
             <div class="w-25 p-3">
-
                 <div class="container">
                     <div class="row">
                         <div class="span5">
-                            <h3>Top Week Scores</h3>
-                            <table class="table table-success">
+                            <h3>Score History</h3>
+                            <table class="table table-dark table-striped">
                                 <thead>
-                                    <th>Username</th>
                                     <th>Score</th>
                                     <th>Time</th>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    foreach ($scoresw as $score) : ?>
+                                    foreach ($scores as $score) : ?>
                                         <tr>
-                                            <td><a href="<?php echo get_url("profile.php?id=");
-                                                            se($score, "user_id"); ?>"><?php se($score, "username"); ?></a></td>
                                             <td><?php se($score, "score", 0); ?></td>
                                             <td><?php se($score, "created", "-"); ?></td>
                                         </tr>
