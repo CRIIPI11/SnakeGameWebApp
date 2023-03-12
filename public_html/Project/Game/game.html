@@ -1,0 +1,300 @@
+<link rel="stylesheet" href="Gstyles.css" />
+
+<h1 id="title">The Snake Game</h1>
+<canvas id="table" width="600px" height="600px" tabindex="1" class="rounded">
+</canvas>
+<script>
+  const canvas = document.getElementById("table");
+  const context = canvas.getContext("2d");
+  context.tabIndex = 1;
+
+  class SnakePart {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
+  let speed = 8;
+
+  let titleCount = 25;
+  let titleSize = canvas.width / titleCount - 2;
+  let headX = 10;
+  let headY = 1;
+  let snakeParts = [];
+  let taillength = 2;
+
+  let appleX = 5;
+  let appleY = 5;
+
+  let xVelocity = 0;
+  let yvelocity = 0;
+
+  let score = 0;
+  let points = 0;
+
+  function erase() {
+    context.fillStyle = "black";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function Snake() {
+    context.fillStyle = "green";
+    for (let i = 0; i < snakeParts.length; i++) {
+      let part = snakeParts[i];
+      context.fillRect(
+        part.x * titleCount,
+        part.y * titleCount,
+        titleSize,
+        titleSize
+      );
+    }
+
+    snakeParts.push(new SnakePart(headX, headY));
+    if (snakeParts.length > taillength) {
+      snakeParts.shift();
+    }
+
+    context.fillStyle = "purple";
+    context.fillRect(
+      headX * titleCount,
+      headY * titleCount,
+      titleSize,
+      titleSize
+    );
+  }
+
+  function Apple() {
+    context.fillStyle = "red";
+    context.fillRect(
+      appleX * titleCount,
+      appleY * titleCount,
+      titleSize,
+      titleSize
+    );
+  }
+
+  function collision() {
+    if (appleX === headX && appleY == headY) {
+      appleX = Math.floor(Math.random() * (titleCount - 2));
+      appleY = Math.floor(Math.random() * (titleCount - 2));
+      taillength++;
+      score++;
+
+      if (score > 0 && score % 20 == 0) {
+        points++;
+      }
+    }
+  }
+
+  function changeposition() {
+    headX = headX + xVelocity;
+    headY = headY + yvelocity;
+  }
+
+  function dScore() {
+    context.fillStyle = "white";
+    context.font = "15px Verdana";
+    context.fillText("Score: " + score, canvas.width - 80, 15);
+  }
+
+  function gameover() {
+    let gameOver = false;
+
+    if (yvelocity === 0 && xVelocity === 0) {
+      return false;
+    }
+
+    //walls
+    if (headX < 0) {
+      gameOver = true;
+    } else if (headX >= titleCount - 1) {
+      gameOver = true;
+    } else if (headY < 0) {
+      gameOver = true;
+    } else if (headY >= titleCount - 1) {
+      gameOver = true;
+    }
+
+    for (let i = 0; i < snakeParts.length; i++) {
+      let part = snakeParts[i];
+      if (part.x === headX && part.y === headY) {
+        gameOver = true;
+        break;
+      }
+    }
+
+    if (gameOver) {
+      context.fillStyle = "white";
+      context.font = "60px Verdana";
+      context.fillText("Game Over", canvas.width / 4, canvas.height / 3);
+      context.fillText(
+        "Score: " + score,
+        canvas.width / 3.5,
+        canvas.height / 2
+      );
+      context.fillStyle = "green";
+      context.fillRect(240, 350, 120, 50);
+      context.fillStyle = "white";
+      context.font = "20px Verdana";
+      context.fillText("Play Again", 247, 382, 200);
+      canvas.addEventListener("click", playAgain);
+      console.log(score);
+    }
+
+    return gameOver;
+  }
+
+  function sscore() {
+    fetch("API/save_scores.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        score: score,
+      }),
+    }).then(async (res) => {
+      let score = await res.json();
+    });
+  }
+
+  function spoints() {
+    fetch("API/save_points.php", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        point: points,
+      }),
+    }).then(async (res) => {
+      let score = await res.json();
+    });
+  }
+
+  function Draw() {
+    changeposition();
+
+    if (gameover()) {
+      console.log(score);
+      sscore();
+      if (points > 0) {
+        spoints();
+      }
+      return;
+    }
+    erase();
+    collision();
+    Apple();
+    Snake();
+    dScore();
+    document.body.addEventListener("keydown", keyDown);
+
+    if (score > 5) {
+      speed = 10;
+    }
+    setTimeout(Draw, 1000 / speed);
+  }
+
+  function keyDown(event) {
+    switch (event.keyCode) {
+      case 40:
+        //Down
+        if (yvelocity == -1) return;
+        yvelocity = 1;
+        xVelocity = 0;
+        document.body.removeEventListener("keydown", keyDown);
+        break;
+      case 38:
+        //Up
+        if (yvelocity == 1) return;
+        yvelocity = -1;
+        xVelocity = 0;
+        document.body.removeEventListener("keydown", keyDown);
+        break;
+      case 37:
+        // LEFT
+        if (xVelocity == 1) return;
+        yvelocity = 0;
+        xVelocity = -1;
+        document.body.removeEventListener("keydown", keyDown);
+        break;
+      case 39:
+        // RIGHT
+        if (xVelocity == -1) return;
+        yvelocity = 0;
+        xVelocity = 1;
+        document.body.removeEventListener("keydown", keyDown);
+        break;
+    }
+  }
+
+  Draw();
+
+  window.addEventListener(
+    "keydown",
+    function (e) {
+      if (
+        ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1
+      ) {
+        e.preventDefault();
+      }
+    },
+    false
+  );
+
+  function reset() {
+    headX = 10;
+    headY = 1;
+    snakeParts = [];
+    taillength = 2;
+
+    appleX = 5;
+    appleY = 5;
+
+    xVelocity = 0;
+    yvelocity = 0;
+
+    score = 0;
+    points = 0;
+    canvas.removeEventListener("click", playAgain);
+  }
+
+  //Function to get the mouse position
+  function getMousePos(canvas, event) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    };
+  }
+  //Function to check whether a point is inside a rectangle
+  function isInside(pos, rect) {
+    return (
+      pos.x > rect.x &&
+      pos.x < rect.x + rect.width &&
+      pos.y < rect.y + rect.height &&
+      pos.y > rect.y
+    );
+  }
+  //The rectangle should have x,y,width,height properties
+  var rect = {
+    x: 240,
+    y: 350,
+    width: 120,
+    height: 50,
+  };
+
+  function playAgain(evt) {
+    var mousePos = getMousePos(canvas, evt);
+
+    if (isInside(mousePos, rect)) {
+      console.log("clicked inside rect");
+      reset();
+      Draw();
+    } else {
+      console.log("clicked outside rect");
+    }
+  }
+</script>
