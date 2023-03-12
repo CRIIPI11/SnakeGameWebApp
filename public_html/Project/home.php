@@ -16,7 +16,7 @@ if (is_logged_in()) {
 ?>
 
 <div class="container">
-    <?php require(__DIR__ . "/Game/game.php"); ?>
+    <?php require(__DIR__ . "/Game/game.html"); ?>
 </div>
 
 
