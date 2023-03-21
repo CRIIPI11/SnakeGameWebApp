@@ -13,18 +13,34 @@
 .alert-info {
   background-color: teal;
 }
-nav li {
-  margin-right: 10px;
-  background-color: rgb(222, 255, 104);
-  border: solid 2px rgb(0, 0, 0);
+
+#title{
+  font-family: cursive;
 }
 
 body {
-  background-color: rgb(48, 48, 48);
+  background-color: #072341;
   color: rgb(255, 255, 255);
 }
 
 #s2 {
   color: aqua;
   text-decoration: overline;
+}
+
+table{
+  border-radius: 0%;
+}
+
+.table-responsive {
+  max-height:300px;
+}
+
+
+
+.tabletitle
+{
+color: black;
+font-family: cursive;
+
 }
