@@ -1,5 +1,7 @@
 <?php
 require(__DIR__ . "/../../partials/nav.php"); ?>
+
+
 <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -21,24 +23,25 @@ require(__DIR__ . "/../../partials/nav.php"); ?>
             </div>
         </div>
     </div>
-    <script>
-        function validate(form) {
-            //TODO 1: implement JavaScript validation
-            //ensure it returns false for an error and true for success
+</div>
+<script>
+    function validate(form) {
+        //TODO 1: implement JavaScript validation
+        //ensure it returns false for an error and true for success
 
-            return true;
-        }
-    </script>
-    <?php
-    //TODO 2: add PHP Code
-    if (is_logged_in()) {
-        die(header("Location: home.php"));
+        return true;
     }
+</script>
+<?php
+//TODO 2: add PHP Code
+if (is_logged_in()) {
+    die(header("Location: home.php"));
+}
 
-    log_in();
+log_in();
 
-    ?>
-    <?php
-    require(__DIR__ . "/../../partials/footer.php");
-    require(__DIR__ . "/../../partials/flash.php");
-    ?>
+?>
+<?php
+require(__DIR__ . "/../../partials/footer.php");
+require(__DIR__ . "/../../partials/flash.php");
+?>

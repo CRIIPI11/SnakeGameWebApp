@@ -120,14 +120,11 @@ if (is_logged_in()) {
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 <?php
 require(__DIR__ . "/../../partials/flash.php");
 require(__DIR__ . "/../../partials/footer.php");
