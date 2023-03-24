@@ -37,7 +37,6 @@ require(__DIR__ . "/../../partials/nav.php"); ?>
 if (is_logged_in()) {
     die(header("Location: home.php"));
 }
-
 log_in();
 
 ?>

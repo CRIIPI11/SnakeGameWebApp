@@ -2,10 +2,10 @@
 require(__DIR__ . "/../../partials/nav.php");
 ?>
 
-<div class="container h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+<div class="container pt-5">
+    <div class="row d-flex justify-content-center ">
+        <div class="col-5  ">
+            <div class="card text-white" style="border-radius: 1rem; background: #0f2d4a;">
                 <div class="card-body p-5">
                     <h1 class="fw-bold mb-2 text-uppercase">Create Account</h1>
                     <div class="mb-md-5 mt-md-4 pb-5">
