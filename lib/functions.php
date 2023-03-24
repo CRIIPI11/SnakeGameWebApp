@@ -271,7 +271,7 @@ function get_top_week()
     $db = getDB();
     $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
     $query .= " WHERE Scores.created >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
-    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $query .= " ORDER BY score Desc, Scores.created desc ";
     $stmt = $db->prepare($query);
     $results = [];
     try {
@@ -291,7 +291,7 @@ function get_top_month()
     $db = getDB();
     $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
     $query .= " WHERE Scores.created >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
-    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 20";
     $stmt = $db->prepare($query);
     $results = [];
     try {
@@ -310,7 +310,7 @@ function get_top_lifetime()
 {
     $db = getDB();
     $query = "SELECT user_id, username, score, Scores.created from Scores join Users on Scores.user_id = Users.id";
-    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 10";
+    $query .= " ORDER BY score Desc, Scores.created desc LIMIT 20";
     $stmt = $db->prepare($query);
     $results = [];
     try {

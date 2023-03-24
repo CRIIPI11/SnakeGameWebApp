@@ -5,11 +5,9 @@
 <div class="container" id="flash">
     <?php $messages = getMessages(); ?>
     <?php if ($messages) : ?>
-        <?php foreach ($messages as $msg) : ?>
-            <div class="row justify-content-center">
-                <div class="alert alert-<?php se($msg, 'color', 'info'); ?>" role="alert"><?php se($msg, "text", ""); ?></div>
-            </div>
-        <?php endforeach; ?>
+        <div class="row justify-content-center">
+            <div class="alert text-dark alert-<?php se(end($messages), 'color', 'info'); ?>" role="alert"><?php se(end($messages), "text", ""); ?></div>
+        </div>
     <?php endif; ?>
 </div>
 <script>
@@ -20,6 +18,5 @@
             target.after(ele);
         }
     }
-
     moveMeUp(document.getElementById("flash"));
 </script>
